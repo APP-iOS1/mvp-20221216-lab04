@@ -24,7 +24,7 @@ struct MainView: View {
                         Text("OOTD")
                     }
                 }
-            PostDetailView()
+            MyPageView()
                 .tabItem {
                     VStack{
                         Image(systemName: "person.icloud")
