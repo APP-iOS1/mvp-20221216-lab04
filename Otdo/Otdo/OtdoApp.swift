@@ -19,7 +19,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main
-struct YourApp: App {
+struct OtdoApp: App {
+    
+    @StateObject var viewRouter = ViewRouter()
+
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
