@@ -29,9 +29,8 @@ struct MyPageView: View {
                     }
                     Spacer()
                 }
-                Button(action: {
-                    
-                }){
+                
+                NavigationLink(destination: Text("프로필 편집 화면")){
                     Text("프로필 편집")
                         .foregroundColor(.gray)
                         .fontWeight(.heavy)
@@ -41,6 +40,7 @@ struct MyPageView: View {
                                 .stroke(.gray, lineWidth: 2)
                         }
                 }
+                
                 Divider()
                     .padding()
                 Picker("게시물 선택", selection: $segmentationSelection){
