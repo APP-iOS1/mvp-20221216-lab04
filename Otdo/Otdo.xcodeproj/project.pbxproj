@@ -23,6 +23,10 @@
 		7F674AC729503B8A0011E71D /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674AC629503B8A0011E71D /* WeatherView.swift */; };
 		7F674AC929503BBA0011E71D /* OOTDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674AC829503BBA0011E71D /* OOTDView.swift */; };
 		7F674ACB29503C1A0011E71D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674ACA29503C1A0011E71D /* MyPageView.swift */; };
+		AD3EF34029503DBE00837A81 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EF33F29503DBE00837A81 /* ViewRouter.swift */; };
+		AD3EF34229503DEF00837A81 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EF34129503DEF00837A81 /* MainView.swift */; };
+		AD3EF34429503F2300837A81 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EF34329503F2300837A81 /* SignupView.swift */; };
+		AD3EF34629503F2F00837A81 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EF34529503F2F00837A81 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,10 @@
 		7F674AC629503B8A0011E71D /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		7F674AC829503BBA0011E71D /* OOTDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOTDView.swift; sourceTree = "<group>"; };
 		7F674ACA29503C1A0011E71D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		AD3EF33F29503DBE00837A81 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		AD3EF34129503DEF00837A81 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AD3EF34329503F2300837A81 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		AD3EF34529503F2F00837A81 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 			children = (
 				7F674ABA29501F8D0011E71D /* GoogleService-Info.plist */,
 				7F674AA329501DC90011E71D /* OtdoApp.swift */,
+				AD3EF33F29503DBE00837A81 /* ViewRouter.swift */,
 				7F674AC529503B160011E71D /* Views */,
 				7F674AC0295024040011E71D /* Models */,
 				7F674AA729501DCA0011E71D /* Assets.xcassets */,
@@ -107,9 +116,12 @@
 		7F674AC529503B160011E71D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AD3EF34129503DEF00837A81 /* MainView.swift */,
 				7F674AA529501DC90011E71D /* ContentView.swift */,
 				7F674AC629503B8A0011E71D /* WeatherView.swift */,
 				7F674AC829503BBA0011E71D /* OOTDView.swift */,
+				AD3EF34329503F2300837A81 /* SignupView.swift */,
+				AD3EF34529503F2F00837A81 /* LoginView.swift */,
 				7F674ACA29503C1A0011E71D /* MyPageView.swift */,
 			);
 			path = Views;
@@ -195,13 +207,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD3EF34429503F2300837A81 /* SignupView.swift in Sources */,
 				7F674ABD29501FE70011E71D /* Post.swift in Sources */,
 				7F674AA629501DC90011E71D /* ContentView.swift in Sources */,
 				7F674AC929503BBA0011E71D /* OOTDView.swift in Sources */,
 				7F674AA429501DC90011E71D /* OtdoApp.swift in Sources */,
 				7F674AC22950241B0011E71D /* UserInfo.swift in Sources */,
+				AD3EF34029503DBE00837A81 /* ViewRouter.swift in Sources */,
 				7F674ACB29503C1A0011E71D /* MyPageView.swift in Sources */,
+				AD3EF34229503DEF00837A81 /* MainView.swift in Sources */,
 				7F674AC4295036C90011E71D /* Weather.swift in Sources */,
+				AD3EF34629503F2F00837A81 /* LoginView.swift in Sources */,
 				7F674AC729503B8A0011E71D /* WeatherView.swift in Sources */,
 				7F674ABF295023F60011E71D /* Comment.swift in Sources */,
 			);

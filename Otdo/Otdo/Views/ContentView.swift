@@ -6,42 +6,28 @@
 //
 
 import SwiftUI
+/// 회원가입 및 로그인 기능 사용을 위한 라이브러리 추가
+import Firebase
 
 struct ContentView: View {
-    @State private var selectedTab: Int = 1
+    @EnvironmentObject var viewRouter: ViewRouter
+    
     var body: some View {
-        VStack {
-            TabView(selection: $selectedTab) {
-                WeatherView()
-                    .tabItem {
-                        VStack{
-                            Image(systemName: "cloud.sun")
-                            Text("Weather")
-                        }
-                    }.tag(1)
-                OOTDView()
-                    .tabItem {
-                        VStack{
-                            Image(systemName: "list.star")
-                            Text("OOTD")
-                        }
-                    }.tag(2)
-                MyPageView()
-                    .tabItem {
-                        VStack{
-                            Image(systemName: "person.icloud")
-                            Text("My Page")
-                        }
-                     }.tag(3)
-            }
-          
+        switch viewRouter.currentPage {
+        case .signupView:
+            SignupView()
+        case .loginView:
+            LoginView()
+        case .mainView:
+            MainView()
         }
-        .padding()
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
