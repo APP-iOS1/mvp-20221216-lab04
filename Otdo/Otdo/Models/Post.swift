@@ -16,8 +16,8 @@ struct Post {
     var content: String
     var image: String
     var likes: [String: Bool]
-    var comment: [Comment]
-//    var bookmark: Bool
+
+//  var bookmark: Bool
     
     var createdAt: Double
     
