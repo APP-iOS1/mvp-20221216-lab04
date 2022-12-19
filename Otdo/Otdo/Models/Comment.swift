@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct Comment {
     var id: String
     var postId: String

@@ -9,6 +9,8 @@ import Foundation
 
 struct UserInfo {
     var id: String
+    var markedPostId: [String]
+    
     var email: String
     var nickName: String
     var gender: String
