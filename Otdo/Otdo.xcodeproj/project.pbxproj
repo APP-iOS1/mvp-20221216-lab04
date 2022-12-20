@@ -36,6 +36,7 @@
 		CA41ED0B29516C7E00CAFC1C /* PostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41ED0A29516C7E00CAFC1C /* PostStore.swift */; };
 		EADBF5B029509601004F890F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADBF5AF29509601004F890F /* RegisterView.swift */; };
 		EADBF5B329509EEA004F890F /* UserInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADBF5B229509EEA004F890F /* UserInfoStore.swift */; };
+		EAE1D9E3295190A300A3FCE3 /* OOTDPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		CA41ED0A29516C7E00CAFC1C /* PostStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStore.swift; sourceTree = "<group>"; };
 		EADBF5AF29509601004F890F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		EADBF5B229509EEA004F890F /* UserInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStore.swift; sourceTree = "<group>"; };
+		EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOTDPostView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +106,8 @@
 				7F674ABA29501F8D0011E71D /* GoogleService-Info.plist */,
 				7F674AA329501DC90011E71D /* OtdoApp.swift */,
 				AD3EF33F29503DBE00837A81 /* ViewRouter.swift */,
-				7F674AC529503B160011E71D /* Views */,
 				7F674AC0295024040011E71D /* Models */,
+				7F674AC529503B160011E71D /* Views */,
 				EADBF5B129509EBF004F890F /* ViewModel */,
 				7F674AA729501DCA0011E71D /* Assets.xcassets */,
 				7F674AA929501DCA0011E71D /* Preview Content */,
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				7F674AC829503BBA0011E71D /* OOTDView.swift */,
+				EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */,
 			);
 			path = OOTDViews;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				AD3EF34229503DEF00837A81 /* MainView.swift in Sources */,
 				7F674AC4295036C90011E71D /* Weather.swift in Sources */,
 				AD3EF34629503F2F00837A81 /* LoginView.swift in Sources */,
+				EAE1D9E3295190A300A3FCE3 /* OOTDPostView.swift in Sources */,
 				92AEEDD529515F7D00265C1E /* LocationManager.swift in Sources */,
 				7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */,
 				92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */,
