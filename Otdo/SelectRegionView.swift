@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct SelectRegionView: View {
-    let regions: [String] = ["서울", "경기", "인천", "대전", "충북", "충남", "부산", "대구", "경북", "경남", "울산", "광주"]
-   // let cities: [String: [String]] = ["경기": ["수원", "성남", "고양", "용인"]]
+    @State private var regions: [String] = ["서울", "경기", "인천", "대전", "충북", "충남", "부산", "대구", "경북", "경남", "울산", "광주"]
+    let cities: [String: [String]] = ["경기": ["수원시", "고양시", "용인시", "성남시", "화성시", "부천시", "남양주시", "안산시", "평택시", "안양시", "시흥시", "파주시", "김포시", "의정부시", "광주시", "하남시", "광명시"]]
     @Binding var selectRegion: String?
+    
     @Environment(\.presentationMode) var isShowRegionSheet: Binding<PresentationMode>
     
     var body: some View {
@@ -18,12 +19,28 @@ struct SelectRegionView: View {
             // 지역 경로
             Spacer()
             HStack {
-                Text("전체 지역")
-                    .font(.headline)
-                Image(systemName: "chevron.right")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                
+                Button(action: {
+                    regions = ["서울", "경기", "인천", "대전", "충북", "충남", "부산", "대구", "경북", "경남", "울산", "광주"]
+                    selectRegion = nil
+                }) {
+                    Text("전체 지역")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                }
+
+                if cities.keys.contains(selectRegion ?? "") {
+                    Image(systemName: "chevron.right")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                    Text(selectRegion ?? "")
+                        .font(.headline)
+                } else if cities.values.map{$0}.reduce([], +).contains(selectRegion) {
+                    Image(systemName: "chevron.right")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                    Text("경기")
+                        .font(.headline)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
@@ -31,25 +48,27 @@ struct SelectRegionView: View {
             // 각 지역 버튼
             ScrollView {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
-                    ForEach(0..<regions.count, id: \.self) { index in
+                    ForEach($regions, id: \.self) { $region in
                         Button(action: {
-                            selectRegion = regions[index]
+                            selectRegion = region
+                            if cities.keys.contains(region) {
+                                regions = cities[region] ?? []
+                            }
                         }) {
-                            if regions[index] == selectRegion {
+                            if region == selectRegion {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 5)
                                         .fill(.black)
                                         .frame(height: 50)
-                                    Text(regions[index])
+                                    Text(region)
                                         .foregroundColor(.white)
                                 }
-                                
                             } else {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 5)
                                         .stroke(.black, lineWidth: 1)
                                         .frame(height: 50)
-                                    Text(regions[index])
+                                    Text(region)
                                         .foregroundColor(.black)
                                 }
                             }
