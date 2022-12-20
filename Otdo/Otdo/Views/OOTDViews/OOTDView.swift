@@ -42,8 +42,8 @@ struct OOTDView: View {
                         spacing: 8,
                         pinnedViews: [],
                         content:  {
-                            ForEach(postStore.posts) { post in
-                                NavigationLink(destination: PostDetailView(post: post)) {
+                            ForEach(Array(postStore.posts.enumerated()), id: \.offset) { (index, post) in
+                                NavigationLink(destination: PostDetailView(post: post, index: index)) {
                                     OOTDPostView(post: post)
                                 }
                                 .foregroundColor(.black)

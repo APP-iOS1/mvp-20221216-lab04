@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct PostDetailView: View {
     @EnvironmentObject var postStore: PostStore
@@ -16,18 +17,22 @@ struct PostDetailView: View {
     
     @State var post: Post
     
+    let index: Int
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
                 HStack {
-                    Text("\(post.nickName)")
+                    Text("\(postStore.posts[index].nickName)")
                         .bold()
                     Spacer()
-                    Button {
-                        showingMenu.toggle()
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .rotationEffect(.init(degrees: 90))
+                    if post.userId == Auth.auth().currentUser?.uid {
+                        Button {
+                            showingMenu.toggle()
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .rotationEffect(.init(degrees: 90))
+                        }
                     }
                 }
                 .padding()
@@ -54,12 +59,12 @@ struct PostDetailView: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("\(post.nickName)")
+                        Text("\(postStore.posts[index].nickName)")
                             .font(.title)
                             .bold()
                             .padding(.leading)
                             .padding(.vertical, -1)
-                        Text(post.content)
+                        Text(postStore.posts[index].content)
                             .padding(.leading)
                     }
                     Spacer()
