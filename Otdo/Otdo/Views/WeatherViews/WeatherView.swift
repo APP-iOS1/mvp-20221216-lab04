@@ -10,26 +10,34 @@ import SwiftUI
 struct WeatherView: View {
     @ObservedObject var weatherStore: WeatherStore = WeatherStore()
     var webService: WebService = WebService()
-    let url: String = "https://api.openweathermap.org/data/2.5/weather?lat=37.5683&lon=126.9778&appid=3f9b06947acddcef370b23a5aaaae195"
+    let url: String = "https://api.openweathermap.org/data/2.5/weather?lat=35.21288&lon=128.98061&appid=3f9b06947acddcef370b23a5aaaae195"
     @State var isShowRegionSheet = false
     @State var isShowDetailWeatherSheet = false
     
     let ranks = ["homeRank", "homeRank", "homeRank", "homeRank", "homeRank"]
     
     var body: some View {
+        // 현재 온도 및 소수점 자르기
+        let temp: String = String(format: "%.1f", (weatherStore.weatherInfo?.main?.temp ?? 0) - 273.15)
+        // 최저 온도 및 소수점 자르기
+        let tempMin: String = String(format: "%.1f", (weatherStore.weatherInfo?.main?.temp_min ?? 0) - 273.15)
+        // 최고 온도 및 소수점 자르기
+        let tempMax: String = String(format: "%.1f", (weatherStore.weatherInfo?.main?.temp_max ?? 0) - 273.15)
         
+        // 현재 날씨
         VStack {
-            // 현재 지역 및 지역 선택 버튼
             Spacer()
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
                     .fill(.gray.opacity(0.2))
                     
                 VStack {
+                    // 지역 버튼
                     Button(action: {
                         isShowRegionSheet.toggle()
                     }) {
                         HStack {
+                            // 현재 위치
                             Text("서울시 강서구")
                                 .font(.title)
                                 .fontWeight(.semibold)
@@ -54,14 +62,14 @@ struct WeatherView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 80)
-                            Text("21°")
+                            Text("\(temp)°")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                             Text("비소식 없이 화창함")
                                 .font(.body)
                                 .foregroundColor(.gray)
                             
-                            Text("최고 23°/최저 18°")
+                            Text("최고 \(tempMax)° / 최저 \(tempMin)°")
                                 .font(.title3)
                         }
                         .foregroundColor(.black)
@@ -76,7 +84,7 @@ struct WeatherView: View {
             }
             .padding(.horizontal, 30)
        
-            
+            // TOP 10
             VStack(alignment: .leading) {
                 Text("TOP 10")
                     .font(.title)
