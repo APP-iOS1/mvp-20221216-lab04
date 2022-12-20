@@ -11,11 +11,12 @@ import Firebase
 
 struct ContentView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var userInfoStore: UserInfoStore
     
     var body: some View {
         switch viewRouter.currentPage {
-        case .signupView:
-            SignupView()
+        case .registerView:
+            RegisterView()
         case .loginView:
             LoginView()
         case .mainView:
