@@ -32,7 +32,11 @@ struct OtdoApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-          ContentView().environmentObject(viewRouter).environmentObject(userInfoStore)
+          if userInfoStore.currentUser == nil {
+              ContentView().environmentObject(viewRouter).environmentObject(userInfoStore)
+          } else {
+              MainView().environmentObject(viewRouter).environmentObject(userInfoStore)
+          }
       }
     }
   }

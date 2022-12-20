@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MyPageView: View {
     @State private var segmentationSelection: PostSection = .myPost
-    
+    @EnvironmentObject var userInfoStore: UserInfoStore
+    @EnvironmentObject var viewRouter: ViewRouter
+
+
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 0, alignment: nil),
         GridItem(.flexible(), spacing: 0, alignment: nil)
@@ -67,7 +70,8 @@ struct MyPageView: View {
             }
             .toolbar{
                 Button(action: {
-                    
+                    userInfoStore.logout()
+                    viewRouter.currentPage = .loginView
                 }){
                     Text("Logout")
                 }
