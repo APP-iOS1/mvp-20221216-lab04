@@ -12,6 +12,7 @@ struct MainView: View {
     var body: some View {
         TabView {
             WeatherView()
+                .environmentObject(LocationManager())
                 .tabItem {
                     VStack{
                         Image(systemName: "cloud.sun")

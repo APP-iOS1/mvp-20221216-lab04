@@ -24,6 +24,7 @@
 		7F674ACB29503C1A0011E71D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674ACA29503C1A0011E71D /* MyPageView.swift */; };
 		7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE1C529514FD5008D607D /* WeatherStore.swift */; };
 		7FDBE1C829514FE1008D607D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE1C729514FE1008D607D /* WebService.swift */; };
+		92AEEDD529515F7D00265C1E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AEEDD429515F7D00265C1E /* LocationManager.swift */; };
 		92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C97629514CEC003E70D8 /* PostAddView.swift */; };
 		92F4C97929514CEC003E70D8 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C97729514CEC003E70D8 /* PostDetailView.swift */; };
 		AD3EF34029503DBE00837A81 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EF33F29503DBE00837A81 /* ViewRouter.swift */; };
@@ -51,6 +52,7 @@
 		7F674ACA29503C1A0011E71D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		7FDBE1C529514FD5008D607D /* WeatherStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStore.swift; sourceTree = "<group>"; };
 		7FDBE1C729514FE1008D607D /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		92AEEDD429515F7D00265C1E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		92F4C97629514CEC003E70D8 /* PostAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAddView.swift; sourceTree = "<group>"; };
 		92F4C97729514CEC003E70D8 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		AD3EF33F29503DBE00837A81 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		EADBF5B129509EBF004F890F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				92AEEDD429515F7D00265C1E /* LocationManager.swift */,
 				EADBF5B229509EEA004F890F /* UserInfoStore.swift */,
 			);
 			path = ViewModel;
@@ -294,6 +297,7 @@
 				AD3EF34229503DEF00837A81 /* MainView.swift in Sources */,
 				7F674AC4295036C90011E71D /* Weather.swift in Sources */,
 				AD3EF34629503F2F00837A81 /* LoginView.swift in Sources */,
+				92AEEDD529515F7D00265C1E /* LocationManager.swift in Sources */,
 				7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */,
 				92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */,
 				7F674ABF295023F60011E71D /* Comment.swift in Sources */,
@@ -427,6 +431,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Otdo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MapChat needs your location to show you other users";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -456,6 +461,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Otdo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MapChat needs your location to show you other users";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
