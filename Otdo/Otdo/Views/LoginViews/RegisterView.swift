@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @StateObject var userInfoStore: UserInfoStore
+    @EnvironmentObject var userInfoStore: UserInfoStore
     
     @State var emailID: String = ""
     @State var password: String = ""
@@ -134,6 +134,6 @@ enum Gender: String {
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView(userInfoStore: UserInfoStore())
+        RegisterView()
     }
 }

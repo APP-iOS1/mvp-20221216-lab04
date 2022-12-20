@@ -22,6 +22,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct OtdoApp: App {
     
     @StateObject var viewRouter = ViewRouter()
+    @StateObject var userInfoStore = UserInfoStore()
+
 
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
@@ -30,7 +32,7 @@ struct OtdoApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        ContentView().environmentObject(viewRouter)
+          ContentView().environmentObject(viewRouter).environmentObject(userInfoStore)
       }
     }
   }
