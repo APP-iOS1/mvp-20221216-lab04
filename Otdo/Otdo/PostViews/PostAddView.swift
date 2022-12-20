@@ -38,8 +38,14 @@ struct PostAddView: View {
             .padding()
             
             Button {
-                let createdAt = Date().timeIntervalSince1970
-                postStore.addPost(newPost: Post(id: UUID().uuidString, userId: userInfoStore.currentUser?.uid ?? "", content: content, image: "", likes: [:], temperature: 2.0, createdAt: createdAt))
+                print(userInfoStore.users.count)
+                for user in userInfoStore.users {
+                    if user.id == userInfoStore.currentUser?.uid {
+                        let createdAt = Date().timeIntervalSince1970
+                        postStore.addPost(newPost: Post(id: UUID().uuidString, userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: "", likes: [:], temperature: 2.0, createdAt: createdAt))
+                    }
+                }
+                isShowingAdd.toggle()
             } label: {
                 ZStack{
                     Rectangle()
@@ -50,6 +56,9 @@ struct PostAddView: View {
                         .foregroundColor(.white)
                 }
             }
+        }
+        .onAppear {
+            userInfoStore.fetchUser()
         }
     }
 }

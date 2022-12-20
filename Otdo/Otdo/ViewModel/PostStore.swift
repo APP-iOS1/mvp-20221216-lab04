@@ -18,6 +18,30 @@ class PostStore : ObservableObject {
         posts = []
     }
     
+    func fetchPost() {
+        print("fetch!")
+        database.collection("Posts")
+            .getDocuments{ (snapshot, error ) in
+                self.posts.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                        let id = document["id"] as? String ?? ""
+                        let userId = document["userId"] as? String ?? ""
+                        let content = document["content"] as? String ?? ""
+                        let nickName = document["nickName"] as? String ?? ""
+                        let image = document["image"] as? String ?? ""
+                        let likes = document["likes"] as? [String:Bool] ?? [:]
+                        let temperature = document["temperature"] as? Double ?? 0.0
+                        let createdAt = document["createdAt"] as? Double ?? 0.0
+                        
+                        self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
+                    }
+                    print(self.posts)
+                }
+            }
+    }
+    
     func addPost(newPost: Post) {
         Task {
             do {
@@ -25,6 +49,7 @@ class PostStore : ObservableObject {
                     .document("\(newPost.id)")
                     .setData(["id": newPost.id,
                               "userId": newPost.userId,
+                              "nickName": newPost.nickName,
                               "content": newPost.content,
                               "image": newPost.image,
                               "likes": newPost.likes,

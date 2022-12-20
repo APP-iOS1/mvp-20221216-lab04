@@ -31,7 +31,7 @@ class UserInfoStore: ObservableObject {
                 let _ = try await database.collection("Users")
                     .document(userUID)
                     .setData([
-                        "id": newUser.id,
+                        "id": userUID,
                         "markedPostID": [],
                         "email": newUser.email,
                         "nickName": newUser.nickName,

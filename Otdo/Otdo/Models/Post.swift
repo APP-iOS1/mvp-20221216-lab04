@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct Post {
+struct Post: Identifiable {
     var id: String
     var userId: String
-
+    var nickName: String
+    
     var content: String
     var image: String
     var likes: [String: Bool]

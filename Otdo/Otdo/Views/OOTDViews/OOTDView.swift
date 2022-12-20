@@ -42,8 +42,8 @@ struct OOTDView: View {
                         spacing: 8,
                         pinnedViews: [],
                         content:  {
-                            ForEach(0..<30) { _ in
-                                OOTDPostView()
+                            ForEach(postStore.posts) { post in
+                                OOTDPostView(post: post)
                             }
                         }
                     )
@@ -63,51 +63,13 @@ struct OOTDView: View {
             }
         }
         .padding()
+        .onAppear {
+            postStore.fetchPost()
+            print(postStore.posts)
+        }
     }
 }
     
-    struct OOTDPostView: View {
-        var body: some View {
-            VStack{
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray)
-                        .frame(width:160, height: 250)
-                    HStack{
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 18    ,height: 18)
-                        Text("민콩")
-                            .font(.system(size: 14))
-                    }
-                    .offset(x:-40,y: 100)
-                }
-                Text("여기는 아무래도 글 내용이 들어가지 않을가용용 뭐라고 적어야 할가용")
-                    .frame(width: 160, height: 30)
-                    .font(.system(size: 12))
-                    .padding(.bottom, 3)
-                HStack{
-                    HStack{
-                        Image(systemName: "heart")
-                        Text("123")
-                            .offset(x: -5)
-                    }
-                    HStack{
-                        Image(systemName: "message")
-                        Text("123")
-                            .offset(x: -5)
-                    }
-                    HStack{
-                        Image(systemName: "bookmark")
-                        Text("123")
-                            .offset(x: -5)
-                    }
-                }
-                .font(.system(size: 12))
-                .padding(.bottom)
-            }
-        }
-    }
     
 //    struct OOTDView_Previews: PreviewProvider {
 //        static var previews: some View {
