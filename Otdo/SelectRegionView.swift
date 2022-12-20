@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectRegionView: View {
-    @State private var regions: [String] = ["서울", "경기", "인천", "대전", "충북", "충남", "부산", "대구", "경북", "경남", "울산", "광주"]
+    @State private var regions: [String] = ["서울", "경기", "인천", "대전", "부산", "대구", "울산", "광주", "제주"]
     let cities: [String: [String]] = ["경기": ["수원시", "고양시", "용인시", "성남시", "화성시", "부천시", "남양주시", "안산시", "평택시", "안양시", "시흥시", "파주시", "김포시", "의정부시", "광주시", "하남시", "광명시"]]
     @Binding var selectRegion: String?
     
@@ -20,7 +20,7 @@ struct SelectRegionView: View {
             Spacer()
             HStack {
                 Button(action: {
-                    regions = ["서울", "경기", "인천", "대전", "충북", "충남", "부산", "대구", "경북", "경남", "울산", "광주"]
+                    regions = ["서울", "경기", "인천", "대전", "부산", "대구", "울산", "광주", "제주"]
                     selectRegion = nil
                 }) {
                     Text("전체 지역")
