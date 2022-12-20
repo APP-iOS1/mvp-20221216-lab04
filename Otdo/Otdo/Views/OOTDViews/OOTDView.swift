@@ -33,7 +33,7 @@ struct OOTDView: View {
                 // FIXME: - SearchBar 배경색 적용 안 됨
                 .background(Color("SearchBar"))
                 .cornerRadius(10)
-                .padding()
+                .padding(.horizontal, 10)
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
@@ -51,6 +51,8 @@ struct OOTDView: View {
                         }
                     )
                 }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
             }
             .toolbar{
                 ToolbarItem {
@@ -62,10 +64,9 @@ struct OOTDView: View {
                 }
             }
         }// NavigationStack
-        .fullScreenCover(isPresented: $isShowingAdd) {
+        .sheet(isPresented: $isShowingAdd) {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
         }
-        .padding()
         .onAppear {
             postStore.fetchPost()
             print(postStore.posts)

@@ -14,16 +14,14 @@ struct RegisterView: View {
     @State var password: String = ""
     @State var nickName: String = ""
 
-    @State private var selected = 1
-    @State var genderSelection: Int = 1
-    var arr = ["남자", "여자"]
-    
     @State private var isMale: Bool = true
     @State private var isFemale: Bool = false
     @State private var selectedGender: Gender = .male
     
     @State private var selectedAge = 14
     let ageArr = Array(14...65)
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 12) {
@@ -106,6 +104,7 @@ struct RegisterView: View {
             Button {
                 let user = UserInfo(id: UUID().uuidString, markedPostId: [], email: emailID, nickName: nickName, gender: String("\(selectedGender)"), age: selectedAge, profileImage: "")
                 userInfoStore.registerUser(newUser: user, password: password)
+                dismiss()
             } label: {
                 // MARK : Sign Up Button
                 Text("Sign up")
@@ -124,6 +123,19 @@ struct RegisterView: View {
             }
         }
         .padding(15)
+        
+        HStack {
+            Text("이미 계정이 있으신가요?")
+                .foregroundColor(.gray)
+            
+            Button("로그인 하러 가기") {
+                dismiss()
+            }
+            .fontWeight(.bold)
+            .foregroundColor(.black)
+        }
+        .font(.callout)
+        .frame(maxHeight: .infinity, alignment: .bottom)
     }
 }
 
