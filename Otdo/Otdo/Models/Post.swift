@@ -8,15 +8,13 @@
 import Foundation
 
 struct Post {
-
     var id: String
     var userId: String
 
-    var title: String
     var content: String
     var image: String
     var likes: [String: Bool]
-
+    var temperature: Double
 //  var bookmark: Bool
     
     var createdAt: Double

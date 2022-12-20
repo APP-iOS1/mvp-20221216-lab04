@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct PostAddView: View {
+    @EnvironmentObject var postStore: PostStore
+    @EnvironmentObject var userInfoStore: UserInfoStore
+    
+    @Binding var isShowingAdd: Bool
+    
+    @State private var title: String = ""
+    @State private var content: String = ""
+    @State private var location: String = ""
+    
     var body: some View {
         VStack {
             Image("PostDetailImage")
@@ -17,12 +26,8 @@ struct PostAddView: View {
                 .padding(20)
             VStack(alignment: .leading) {
                 Divider()
-                Text("제목")
-                    .foregroundColor(.gray)
-                    .padding(.leading,5)
-                Divider()
-                Text("내용")
-                    .foregroundColor(.gray)
+                TextField("내용을 입력해주세요", text: $content)
+                    .frame(height: 100)
                     .padding(.leading,5)
                 Divider()
                 Text("위치추가")
@@ -33,7 +38,8 @@ struct PostAddView: View {
             .padding()
             
             Button {
-                
+                let createdAt = Date().timeIntervalSince1970
+                postStore.addPost(newPost: Post(id: UUID().uuidString, userId: userInfoStore.currentUser?.uid ?? "", content: content, image: "", likes: [:], temperature: 2.0, createdAt: createdAt))
             } label: {
                 ZStack{
                     Rectangle()
@@ -48,8 +54,8 @@ struct PostAddView: View {
     }
 }
 
-struct PostAddView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostAddView()
-    }
-}
+//struct PostAddView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PostAddView()
+//    }
+//}

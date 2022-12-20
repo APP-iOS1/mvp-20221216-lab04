@@ -23,7 +23,7 @@ struct OtdoApp: App {
     
     @StateObject var viewRouter = ViewRouter()
     @StateObject var userInfoStore = UserInfoStore()
-
+    @StateObject var postStore = PostStore()
 
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
@@ -33,9 +33,9 @@ struct OtdoApp: App {
     WindowGroup {
       NavigationView {
           if userInfoStore.currentUser == nil {
-              ContentView().environmentObject(viewRouter).environmentObject(userInfoStore)
+              ContentView().environmentObject(viewRouter).environmentObject(userInfoStore).environmentObject(postStore)
           } else {
-              MainView().environmentObject(viewRouter).environmentObject(userInfoStore)
+              MainView().environmentObject(viewRouter).environmentObject(userInfoStore).environmentObject(postStore)
           }
       }
     }
