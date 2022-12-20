@@ -35,7 +35,7 @@ struct OOTDView: View {
                 .cornerRadius(10)
                 .padding()
                 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     LazyVGrid(
                         columns: columns,
                         alignment: .center,
@@ -43,24 +43,27 @@ struct OOTDView: View {
                         pinnedViews: [],
                         content:  {
                             ForEach(postStore.posts) { post in
-                                OOTDPostView(post: post)
+                                NavigationLink(destination: PostDetailView(post: post)) {
+                                    OOTDPostView(post: post)
+                                }
+                                .foregroundColor(.black)
                             }
                         }
                     )
                 }
             }
+            .toolbar{
+                ToolbarItem {
+                    Button {
+                        isShowingAdd.toggle()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                }
+            }
         }// NavigationStack
         .fullScreenCover(isPresented: $isShowingAdd) {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
-        }
-        .toolbar{
-            ToolbarItem {
-                Button {
-                    isShowingAdd.toggle()
-                } label: {
-                    Image(systemName: "square.and.pencil")
-                }
-            }
         }
         .padding()
         .onAppear {
