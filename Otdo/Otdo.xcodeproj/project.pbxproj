@@ -33,6 +33,7 @@
 		AD735CC9295150EE00AD8F61 /* DetailWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD735CC8295150EE00AD8F61 /* DetailWeatherView.swift */; };
 		AD735CCB2951511B00AD8F61 /* SelectRegionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD735CCA2951511B00AD8F61 /* SelectRegionView.swift */; };
 		AD735CCD2951513A00AD8F61 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD735CCC2951513A00AD8F61 /* WeatherView.swift */; };
+		CA41ED0B29516C7E00CAFC1C /* PostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41ED0A29516C7E00CAFC1C /* PostStore.swift */; };
 		EADBF5B029509601004F890F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADBF5AF29509601004F890F /* RegisterView.swift */; };
 		EADBF5B329509EEA004F890F /* UserInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADBF5B229509EEA004F890F /* UserInfoStore.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		AD735CC8295150EE00AD8F61 /* DetailWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailWeatherView.swift; path = ../../../DetailWeatherView.swift; sourceTree = "<group>"; };
 		AD735CCA2951511B00AD8F61 /* SelectRegionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectRegionView.swift; path = ../../../SelectRegionView.swift; sourceTree = "<group>"; };
 		AD735CCC2951513A00AD8F61 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		CA41ED0A29516C7E00CAFC1C /* PostStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStore.swift; sourceTree = "<group>"; };
 		EADBF5AF29509601004F890F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		EADBF5B229509EEA004F890F /* UserInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +198,7 @@
 			children = (
 				92AEEDD429515F7D00265C1E /* LocationManager.swift */,
 				EADBF5B229509EEA004F890F /* UserInfoStore.swift */,
+				CA41ED0A29516C7E00CAFC1C /* PostStore.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				7F674AA429501DC90011E71D /* OtdoApp.swift in Sources */,
 				7F674AC22950241B0011E71D /* UserInfo.swift in Sources */,
 				7FDBE1C829514FE1008D607D /* WebService.swift in Sources */,
+				CA41ED0B29516C7E00CAFC1C /* PostStore.swift in Sources */,
 				92F4C97929514CEC003E70D8 /* PostDetailView.swift in Sources */,
 				AD3EF34029503DBE00837A81 /* ViewRouter.swift in Sources */,
 				AD735CC9295150EE00AD8F61 /* DetailWeatherView.swift in Sources */,
