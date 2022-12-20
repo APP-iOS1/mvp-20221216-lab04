@@ -6,16 +6,20 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
 class UserInfoStore: ObservableObject {
-    @Published var users: [UserInfo]
+    @Published var users: [UserInfo] = []
+    @Published var currentUser: Firebase.User?
+    
 
     let database = Firestore.firestore()
     
-    init(users: [UserInfo] = []) {
-        self.users = users
+    
+    init() {
+        currentUser = Auth.auth().currentUser
     }
 
     func registerUser(newUser: UserInfo, password: String) {
@@ -45,26 +49,31 @@ class UserInfoStore: ObservableObject {
     
     func loginUser(emailID: String, password: String) {
         Task {
-            do {
                 // With the help of Swift Concurrency Auth can be done with Single Line
-                try await Auth.auth().signIn(withEmail: emailID, password: password)
+                Auth.auth().signIn(withEmail: emailID, password: password) { result, error in
+                    if let error = error {
+                        print("Error : \(error.localizedDescription)")
+                        return
+                    }
                 print("User Found")
-                fetchUser()
-            } catch {
-                print("\(error)")
+                self.currentUser = result?.user
+              
+          
             }
+            fetchUser()
         }
     }
     
-//    func fetchUser() async throws {
-//        guard let userID = Auth.auth().currentUser?.uid else { return }
-//        let user = try await Firestore.firestore().collection("Users").document(userID).getDocument()
-//
-//        await MainActor.run(body: {
-//            // Setting UserDefaults data and Changing App's Auth Status
-//            print("\(user)")
-//        })
-//    }
+    // 로그아웃 해주는 함수
+    func logout() {
+        currentUser = nil
+        do {
+            try Auth.auth().signOut()
+           
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+    }
     
     func fetchUser(){
         print("fetch!")
@@ -76,20 +85,13 @@ class UserInfoStore: ObservableObject {
                 if let snapshot {
                     print("[snapshot] \(snapshot)")
                     let id = snapshot["id"] as? String ?? ""
-//                    print(id)
                     let markedPostId = snapshot["markedPostID"] as? [String] ?? []
-//                    print(markedPostId)
                     let email = snapshot["email"] as? String ?? ""
-//                    print(email)
                     let nickName = snapshot["nickName"] as? String ?? ""
-//                    print(nickName)
                     let gender = snapshot["gender"] as? String ?? ""
-//                    print(gender)
                     let age = snapshot["age"] as? Int ?? 0
-//                    print(age)
                     let profileImage = snapshot["profileImage"] as? String ?? ""
-//                    print(profileImage)
-                    
+
                     self.users.append(UserInfo(id: id, markedPostId: markedPostId, email: email, nickName: nickName, gender: gender, age: age, profileImage: profileImage))
                     print("\(self.users)")
                 }

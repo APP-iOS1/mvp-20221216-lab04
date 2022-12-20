@@ -22,11 +22,11 @@
 		7F674AC4295036C90011E71D /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674AC3295036C90011E71D /* Weather.swift */; };
 		7F674AC929503BBA0011E71D /* OOTDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674AC829503BBA0011E71D /* OOTDView.swift */; };
 		7F674ACB29503C1A0011E71D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674ACA29503C1A0011E71D /* MyPageView.swift */; };
-		92F4C956295141A4003E70D8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C954295141A4003E70D8 /* WebService.swift */; };
+		7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE1C529514FD5008D607D /* WeatherStore.swift */; };
+		7FDBE1C829514FE1008D607D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE1C729514FE1008D607D /* WebService.swift */; };
 		92F4C95B295142F7003E70D8 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C958295142F7003E70D8 /* WeatherView.swift */; };
 		92F4C95C295142F7003E70D8 /* SelectRegionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C959295142F7003E70D8 /* SelectRegionView.swift */; };
 		92F4C95D295142F7003E70D8 /* DetailWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C95A295142F7003E70D8 /* DetailWeatherView.swift */; };
-		92F4C95F29514355003E70D8 /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C95E29514355003E70D8 /* WeatherStore.swift */; };
 		92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C97629514CEC003E70D8 /* PostAddView.swift */; };
 		92F4C97929514CEC003E70D8 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C97729514CEC003E70D8 /* PostDetailView.swift */; };
 		AD3EF34029503DBE00837A81 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EF33F29503DBE00837A81 /* ViewRouter.swift */; };
@@ -49,11 +49,11 @@
 		7F674AC3295036C90011E71D /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		7F674AC829503BBA0011E71D /* OOTDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOTDView.swift; sourceTree = "<group>"; };
 		7F674ACA29503C1A0011E71D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
-		92F4C954295141A4003E70D8 /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebService.swift; path = "../../../../../Desktop/mvp-20221216-lab04/Otdo/Otdo/Models/WebService.swift"; sourceTree = "<group>"; };
+		7FDBE1C529514FD5008D607D /* WeatherStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStore.swift; sourceTree = "<group>"; };
+		7FDBE1C729514FE1008D607D /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		92F4C958295142F7003E70D8 /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherView.swift; path = "../../../../../../Desktop/mvp-20221216-lab04/Otdo/Otdo/Views/WeatherViews/WeatherView.swift"; sourceTree = "<group>"; };
 		92F4C959295142F7003E70D8 /* SelectRegionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectRegionView.swift; path = "../../../../../../Desktop/mvp-20221216-lab04/Otdo/Otdo/Views/WeatherViews/SelectRegionView.swift"; sourceTree = "<group>"; };
 		92F4C95A295142F7003E70D8 /* DetailWeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailWeatherView.swift; path = "../../../../../../Desktop/mvp-20221216-lab04/Otdo/Otdo/Views/WeatherViews/DetailWeatherView.swift"; sourceTree = "<group>"; };
-		92F4C95E29514355003E70D8 /* WeatherStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherStore.swift; path = "../../../../../Desktop/mvp-20221216-lab04/Otdo/Otdo/Views/WeatherStore.swift"; sourceTree = "<group>"; };
 		92F4C97629514CEC003E70D8 /* PostAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAddView.swift; sourceTree = "<group>"; };
 		92F4C97729514CEC003E70D8 /* PostDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		AD3EF33F29503DBE00837A81 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 			children = (
 				7F674ABC29501FE70011E71D /* Post.swift */,
 				7F674ABE295023F60011E71D /* Comment.swift */,
-				92F4C95E29514355003E70D8 /* WeatherStore.swift */,
-				92F4C954295141A4003E70D8 /* WebService.swift */,
+				7FDBE1C529514FD5008D607D /* WeatherStore.swift */,
+				7FDBE1C729514FE1008D607D /* WebService.swift */,
 				7F674AC12950241B0011E71D /* UserInfo.swift */,
 				7F674AC3295036C90011E71D /* Weather.swift */,
 			);
@@ -282,19 +282,19 @@
 				7F674AA629501DC90011E71D /* ContentView.swift in Sources */,
 				EADBF5B029509601004F890F /* RegisterView.swift in Sources */,
 				7F674AC929503BBA0011E71D /* OOTDView.swift in Sources */,
-				92F4C956295141A4003E70D8 /* WebService.swift in Sources */,
 				7F674AA429501DC90011E71D /* OtdoApp.swift in Sources */,
 				92F4C95D295142F7003E70D8 /* DetailWeatherView.swift in Sources */,
 				7F674AC22950241B0011E71D /* UserInfo.swift in Sources */,
+				7FDBE1C829514FE1008D607D /* WebService.swift in Sources */,
 				92F4C95C295142F7003E70D8 /* SelectRegionView.swift in Sources */,
 				92F4C95B295142F7003E70D8 /* WeatherView.swift in Sources */,
 				92F4C97929514CEC003E70D8 /* PostDetailView.swift in Sources */,
 				AD3EF34029503DBE00837A81 /* ViewRouter.swift in Sources */,
-				92F4C95F29514355003E70D8 /* WeatherStore.swift in Sources */,
 				7F674ACB29503C1A0011E71D /* MyPageView.swift in Sources */,
 				AD3EF34229503DEF00837A81 /* MainView.swift in Sources */,
 				7F674AC4295036C90011E71D /* Weather.swift in Sources */,
 				AD3EF34629503F2F00837A81 /* LoginView.swift in Sources */,
+				7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */,
 				92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */,
 				7F674ABF295023F60011E71D /* Comment.swift in Sources */,
 			);
