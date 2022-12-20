@@ -56,7 +56,7 @@ class PostStore : ObservableObject {
                               "temperature": newPost.temperature,
                               "createdAt": newPost.createdAt,
                               "createdDate": newPost.createdDate
-                    ])
+                             ])
             } catch {
                 await MainActor.run(body: {
                     print("\(error.localizedDescription)")
@@ -65,37 +65,36 @@ class PostStore : ObservableObject {
         }
     }
     
-//    func fetchPost(){
-//        print("fetch!")
-//        database.collection("").document(userID)
-//            .getDocument { snapshot, error in
-//                if let snapshot {
-//                    print("[snapshot] \(snapshot)")
-//                    let id = snapshot["id"] as? String ?? ""
-//
-//                    let markedPostId = snapshot["markedPostID"] as? [String] ?? []
-//                    let email = snapshot["email"] as? String ?? ""
-//                    let nickName = snapshot["nickName"] as? String ?? ""
-//                    let gender = snapshot["gender"] as? String ?? ""
-//                    let age = snapshot["age"] as? Int ?? 0
-//                    let profileImage = snapshot["profileImage"] as? String ?? ""
-//
-//                    self.users.append(UserInfo(id: id, markedPostId: markedPostId, email: email, nickName: nickName, gender: gender, age: age, profileImage: profileImage))
-//                    print("\(self.users)")
-//                }
-//            }
-//    }
+    func removePost(_ post:Post) {
+        database.collection("Posts").document(post.id).delete()
+        { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+        fetchPost()
+    }
+    
+    func updatePost(_ post: Post) {
+        database.collection("Posts").document(post.id).updateData([
+            "id": post.id,
+            "userId": post.userId,
+            "content": post.content,
+            "nickName": post.nickName,
+            "image": post.image,
+            "likes": post.likes,
+            "temperature": post.temperature,
+            "createdAt": post.createdAt,
+            "createdDate": post.createdDate
+        ], completion: { error in
+            if let error {
+                print(error)
+            }
+        })
+        fetchPost()
+    }
+    
 }
 
-//    func addPost(_ message : String, cheer : Cheer){
-////        database.collection("Cheer").document("message").setData([
-//        database.collection("Cheer").document("\(message)").setData([
-//            "content" : cheer.content,
-//            "date" : cheer.createdDate,
-//            "nickName" : cheer.nickName,
-//            "profile" : "Link",
-//
-//        ])
-//
-//        fetchPost()
-//    }

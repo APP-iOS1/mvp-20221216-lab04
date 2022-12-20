@@ -8,11 +8,30 @@
 import SwiftUI
 
 struct PostDetailView: View {
-    let post: Post
+    @EnvironmentObject var postStore: PostStore
+    @EnvironmentObject var userInfoStore: UserInfoStore
+    
+    @State private var showingMenu: Bool = false
+    @State private var showingEdit: Bool = false
+    
+    @State var post: Post
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
+                HStack {
+                    Text("\(post.nickName)")
+                        .bold()
+                    Spacer()
+                    Button {
+                        showingMenu.toggle()
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .rotationEffect(.init(degrees: 90))
+                    }
+                }
+                .padding()
+                
                 Image("PostDetailImage")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
@@ -89,6 +108,28 @@ struct PostDetailView: View {
                 .padding(.top, 5)
                 .padding(.bottom, 10)
             }
+        }
+        .sheet(isPresented: $showingMenu) {
+            List {
+                Button {
+                    showingMenu.toggle() //false
+                    showingEdit.toggle() //true
+                    
+                    
+                } label: {
+                    Text("글 수정하기")
+                }
+
+                Button {
+                    postStore.removePost(post)
+                } label: {
+                    Text("글 삭제하기")
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .fullScreenCover(isPresented: $showingEdit) {
+            PostEditView(content: post.content, post: $post)
         }
     }
 }

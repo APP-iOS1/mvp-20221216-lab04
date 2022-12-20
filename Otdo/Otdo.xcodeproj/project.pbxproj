@@ -37,6 +37,7 @@
 		EADBF5B029509601004F890F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADBF5AF29509601004F890F /* RegisterView.swift */; };
 		EADBF5B329509EEA004F890F /* UserInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADBF5B229509EEA004F890F /* UserInfoStore.swift */; };
 		EAE1D9E3295190A300A3FCE3 /* OOTDPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */; };
+		EAE1D9E52951AEE400A3FCE3 /* PostEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D9E42951AEE400A3FCE3 /* PostEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		EADBF5AF29509601004F890F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		EADBF5B229509EEA004F890F /* UserInfoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoStore.swift; sourceTree = "<group>"; };
 		EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OOTDPostView.swift; sourceTree = "<group>"; };
+		EAE1D9E42951AEE400A3FCE3 /* PostEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,10 +143,10 @@
 			children = (
 				7F674AA529501DC90011E71D /* ContentView.swift */,
 				AD3EF34129503DEF00837A81 /* MainView.swift */,
-				92F4C97529514CEC003E70D8 /* PostViews */,
 				92F4C957295142EB003E70D8 /* WeatherViews */,
 				AD735CC32951447F00AD8F61 /* LoginViews */,
 				AD735CC4295144BF00AD8F61 /* OOTDViews */,
+				92F4C97529514CEC003E70D8 /* PostViews */,
 				AD735CC72951450E00AD8F61 /* MyPageViews */,
 			);
 			path = Views;
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				92F4C97629514CEC003E70D8 /* PostAddView.swift */,
+				EAE1D9E42951AEE400A3FCE3 /* PostEditView.swift */,
 				92F4C97729514CEC003E70D8 /* PostDetailView.swift */,
 			);
 			name = PostViews;
@@ -306,6 +309,7 @@
 				AD3EF34629503F2F00837A81 /* LoginView.swift in Sources */,
 				EAE1D9E3295190A300A3FCE3 /* OOTDPostView.swift in Sources */,
 				92AEEDD529515F7D00265C1E /* LocationManager.swift in Sources */,
+				EAE1D9E52951AEE400A3FCE3 /* PostEditView.swift in Sources */,
 				7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */,
 				92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */,
 				7F674ABF295023F60011E71D /* Comment.swift in Sources */,
