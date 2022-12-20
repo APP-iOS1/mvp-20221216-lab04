@@ -79,7 +79,7 @@ struct WeatherView: View {
                         
                     }
                     .sheet(isPresented: $isShowDetailWeatherSheet, onDismiss: changeRegion) {
-                        DetailWeatherView()
+                        DetailWeatherView(url: url+"?q=\(regionDic[region ?? "seoul"] ?? "seoul")&appid=da7d02bbb56edde56edb8830de8261df")
                     }
                 }
 
