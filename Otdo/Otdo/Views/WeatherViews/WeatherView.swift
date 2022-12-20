@@ -10,9 +10,12 @@ import SwiftUI
 struct WeatherView: View {
     @ObservedObject var weatherStore: WeatherStore = WeatherStore()
     var webService: WebService = WebService()
-    let url: String = "https://api.openweathermap.org/data/2.5/weather?lat=35.21288&lon=128.98061&appid=3f9b06947acddcef370b23a5aaaae195"
-    @State var isShowRegionSheet = false
-    @State var isShowDetailWeatherSheet = false
+    let url: String = "https://api.openweathermap.org/data/2.5/weather"
+    let regionDic: [String: String] = ["서울": "seoul", "부산": "busan", "인천": "incheon", "대전": "daejeon", "대구": "daegu"]
+    
+    @State private var isShowRegionSheet: Bool = false
+    @State private var isShowDetailWeatherSheet: Bool = false
+    @State private var region: String?
     
     let ranks = ["homeRank", "homeRank", "homeRank", "homeRank", "homeRank"]
     
@@ -38,7 +41,7 @@ struct WeatherView: View {
                     }) {
                         HStack {
                             // 현재 위치
-                            Text("서울시 강서구")
+                            Text("\(region ?? "서울 강서구")")
                                 .font(.title)
                                 .fontWeight(.semibold)
                             Image(systemName: "chevron.down")
@@ -47,8 +50,8 @@ struct WeatherView: View {
                         .foregroundColor(.black)
                     }
                     
-                    .sheet(isPresented: $isShowRegionSheet) {
-                        SelectRegionView()
+                    .sheet(isPresented: $isShowRegionSheet, onDismiss: changeRegion) {
+                        SelectRegionView(selectRegion: $region)
                             .presentationDetents([.medium])
                     }
                     
@@ -75,7 +78,7 @@ struct WeatherView: View {
                         .foregroundColor(.black)
                         
                     }
-                    .sheet(isPresented: $isShowDetailWeatherSheet) {
+                    .sheet(isPresented: $isShowDetailWeatherSheet, onDismiss: changeRegion) {
                         DetailWeatherView()
                     }
                 }
@@ -108,9 +111,19 @@ struct WeatherView: View {
         }
         .onAppear{
             Task {
-                weatherStore.weatherInfo = try await webService.fetchData(url: url)
+                let currentLocationUrl = url+"?lat=35.21288&lon=128.98061&appid=3f9b06947acddcef370b23a5aaaae195"
+                weatherStore.weatherInfo = try await webService.fetchData(url: currentLocationUrl)
             }
-            
+        }
+
+    }
+    
+    func changeRegion() {
+        Task {
+            guard let selectRegion = region else { return }
+            let regionUrl = url+"?q=\(regionDic[selectRegion] ?? "seoul")&appid=da7d02bbb56edde56edb8830de8261df"
+            weatherStore.weatherInfo = try await webService.fetchData(url: regionUrl)
+            print(weatherStore.weatherInfo?.name ?? "")
         }
     }
 }
