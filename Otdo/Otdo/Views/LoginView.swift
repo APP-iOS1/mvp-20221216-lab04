@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var viewRouter: ViewRouter
+    @StateObject var userInfoStore: UserInfoStore = UserInfoStore()
+    
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -63,7 +66,8 @@ struct LoginView: View {
                 
                 VStack{
                     Button(action: {
-                        
+                        userInfoStore.loginUser(emailID: email, password: password)
+                        viewRouter.currentPage = .mainView
                     }){
                         Text("로그인")
                             .foregroundColor(.white)
@@ -95,7 +99,7 @@ struct LoginView: View {
                 HStack{
                     Text("계정이 없으신가요?")
                         .font(.footnote)
-                    NavigationLink(destination: Text("회원가입 뷰")) {
+                    NavigationLink(destination: RegisterView(userInfoStore: userInfoStore)) {
                         Text("회원가입")
                             .font(.footnote)
                     }
