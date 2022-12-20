@@ -63,6 +63,7 @@ class PostStore : ObservableObject {
                 })
             }
         }
+        fetchPost()
     }
     
     func removePost(_ post:Post) {
