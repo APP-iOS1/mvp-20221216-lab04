@@ -11,7 +11,8 @@ struct WeatherView: View {
     @ObservedObject var weatherStore: WeatherStore = WeatherStore()
     var webService: WebService = WebService()
     let url: String = "https://api.openweathermap.org/data/2.5/weather"
-    let regionDic: [String: String] = ["서울": "seoul", "부산": "busan", "인천": "incheon", "대전": "daejeon", "대구": "daegu"]
+    let regionDic: [String: String] = ["서울": "seoul", "인천": "incheon", "대전": "daejeon", "부산": "busan", "대구": "daegu", "울산": "ulsan", "광주": "gwangju", "제주": "jeju", "수원시": "suwon", "고양시": "goyang", "용인시": "yongin", "성남시": "seongnam", "화성시": "hwaseong"]
+    let weatherImage: [String: String] = ["clear": "sun.max.fill", "Clouds": "cloud.fill", "Snow": "snowflake"]
     
     @State private var isShowRegionSheet: Bool = false
     @State private var isShowDetailWeatherSheet: Bool = false
@@ -59,8 +60,8 @@ struct WeatherView: View {
                     Button(action: {
                         isShowDetailWeatherSheet.toggle()
                     }) {
-                        VStack(spacing: 5) {
-                            Image(systemName: "sun.max.fill")
+                        VStack(spacing: 8) {
+                            Image(systemName: weatherImage[weatherStore.weatherInfo?.weather?[0].main ?? ""] ?? "sun.max.fill")
                                 .renderingMode(.original)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -68,7 +69,7 @@ struct WeatherView: View {
                             Text("\(temp)°")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                            Text("비소식 없이 화창함")
+                            Text(weatherStore.weatherInfo?.weather?[0].description ?? "")
                                 .font(.body)
                                 .foregroundColor(.gray)
                             
