@@ -17,7 +17,11 @@ struct OOTDView: View {
     ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
     var body: some View {
         NavigationStack{
             VStack{

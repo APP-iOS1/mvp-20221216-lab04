@@ -6,12 +6,21 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MyPageView: View {
     @State private var segmentationSelection: PostSection = .myPost
+    @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
     @EnvironmentObject var viewRouter: ViewRouter
 
+<<<<<<< Updated upstream
+=======
+    @State private var myPost: [Post] = []
+    
+    var userNickName: String = "Empty"
+    let userEmail: String = "Empty"
+>>>>>>> Stashed changes
 
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 0, alignment: nil),
@@ -60,9 +69,11 @@ struct MyPageView: View {
                         spacing: 8,
                         pinnedViews: [],
                         content:  {
-                            ForEach(0..<30) { index in RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.gray)
-                                    .frame(width:160, height: 250)
+                            ForEach(Array(myPost.enumerated()), id: \.offset) { (index, post) in
+                                NavigationLink(destination: PostDetailView(post: post, index: index)) {
+                                    OOTDPostView(post: post)
+                                }
+                                .foregroundColor(.black)
                             }
                         }
                     )
@@ -77,6 +88,14 @@ struct MyPageView: View {
                 }
             }
             .padding()
+        }
+        .onAppear {
+            myPost.removeAll()
+            for post in postStore.posts {
+                if post.userId == Auth.auth().currentUser?.uid {
+                    myPost.append(post)
+                }
+            }
         }
     }
 }

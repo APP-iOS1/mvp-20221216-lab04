@@ -20,7 +20,12 @@ class PostStore : ObservableObject {
     
     func fetchPost() {
         print("fetch!")
+<<<<<<< Updated upstream
         database.collection("Posts")
+=======
+        database.collection("TestPosts")
+            .order(by: "createdDate", descending: true)
+>>>>>>> Stashed changes
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
                 
@@ -45,7 +50,7 @@ class PostStore : ObservableObject {
     func addPost(newPost: Post) {
         Task {
             do {
-                let _ = try await database.collection("Posts")
+                let _ = try await database.collection("TestPosts")
                     .document("\(newPost.id)")
                     .setData(["id": newPost.id,
                               "userId": newPost.userId,
