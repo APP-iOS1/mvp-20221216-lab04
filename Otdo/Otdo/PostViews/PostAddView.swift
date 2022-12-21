@@ -58,7 +58,7 @@ struct PostAddView: View {
             }
         }
         .onAppear {
-            userInfoStore.fetchUser()
+            // userInfoStore.fetchUser()
         }
     }
 }
