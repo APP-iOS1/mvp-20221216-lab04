@@ -124,26 +124,37 @@ struct PostDetailView: View {
                 .padding(.bottom, 10)
             }
         }
-        .sheet(isPresented: $showingMenu) {
-            List {
-                Button {
-                    showingMenu.toggle() //false
-                    showingEdit.toggle() //true
-                    
-                } label: {
-                    Text("글 수정하기")
-                }
 
-                Button {
-                    postStore.removePost(post)
+        .sheet(isPresented: $showingMenu, content: {
+//            List {
+                    Button {
+                        showingMenu.toggle() //false
+                        showingEdit.toggle() //true
+                        
+                    } label: {
+                        Text("글 수정하기")
+                            .foregroundColor(.white)
+                    }
+//                    .padding(.horizontal, 20)
+                    .frame(maxWidth: UIScreen.main.bounds.width - 20, minHeight: 50, alignment: .center)
+                    .background(Color.black)
+                    .cornerRadius(10)
+                    
+                    Button {
+                        postStore.removePost(post)
                     showingMenu.toggle() //false
                     dismiss()
-                } label: {
-                    Text("글 삭제하기")
-                }
-            }
-            .presentationDetents([.medium, .large])
-        }
+                    } label: {
+                        Text("글 삭제하기")
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: UIScreen.main.bounds.width - 20, minHeight: 50, alignment: .center)
+                    .background(Color.black)
+                    .cornerRadius(10)
+  //          }
+            
+            .presentationDetents([.height(150)])
+        })
         .fullScreenCover(isPresented: $showingEdit) {
             PostEditView(content: post.content, post: $post)
         }

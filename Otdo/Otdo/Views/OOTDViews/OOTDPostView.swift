@@ -15,7 +15,6 @@ struct OOTDPostView: View {
     var body: some View {
         VStack{
  
-            ZStack{
                 AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
                     image
                         .resizable()
@@ -24,15 +23,20 @@ struct OOTDPostView: View {
                 }placeholder: {
                     ProgressView()
                 }
-                HStack{
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 18    ,height: 18)
-                    Text(post.nickName)
-                        .font(.system(size: 14))
-                }
-                .offset(x:-40,y: 100)
-            }
+                .overlay(
+                    HStack{
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 18    ,height: 18)
+                        Text(post.nickName)
+                            .font(.system(size: 14))
+                        Spacer()
+                        Text("\(Int(post.temperature))℃")
+                    }
+                        .padding(10)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                )
+           
             Text(post.content)
                 .frame(width: 160, height: 30)
                 .font(.system(size: 12))

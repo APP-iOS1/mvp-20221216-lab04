@@ -8,8 +8,10 @@
 import Foundation
 
 class WeatherStore: ObservableObject {
-    @Published var weatherInfo: Weather?
-//    init(weatherInfo: Main) {
+    @Published var currentWeatherInfo: CurrentWeather?
+//    init(weatherInfo: CurrentWeather?) {
 //        self.weatherInfo = weatherInfo
 //    }
+    
+    @Published var hourlyWeatherInfo: HourlyWeather?
 }
