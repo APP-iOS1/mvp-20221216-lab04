@@ -44,7 +44,7 @@ struct OOTDView: View {
                         content:  {
                             ForEach(Array(postStore.posts.enumerated()), id: \.offset) { (index, post) in
                                 NavigationLink(destination: PostDetailView(post: post, index: index)) {
-                                    OOTDPostView(post: post)
+                                    OOTDPostView(post: post, index: index)
                                 }
                                 .foregroundColor(.black)
                             }
@@ -70,6 +70,9 @@ struct OOTDView: View {
         .onAppear {
             postStore.fetchPost()
             print(postStore.posts)
+        }
+        .refreshable {
+            postStore.fetchPost()
         }
     }
 }

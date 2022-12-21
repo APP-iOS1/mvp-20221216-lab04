@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
+import UIKit
 
 class PostStore : ObservableObject {
     @Published var posts : [Post] = []
@@ -114,7 +115,7 @@ class PostStore : ObservableObject {
     
     // 사진 업로드
     func uploadImage(image: Data?, name: String) {
-        let storageRef = storage.reference().child("images/\(name)")
+        let storageRef = storage.reference().child("images/\(name)") //images/postId/imageName
         let data = image
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpg"
