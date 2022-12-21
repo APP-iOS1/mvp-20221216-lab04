@@ -40,7 +40,7 @@ class PostStore : ObservableObject {
         
         print("fetchByTemperature!")
         
-        database.collection("TestPosts")
+        database.collection("Posts")
             .whereField("temperature", isGreaterThanOrEqualTo: lowTemp)
             .whereField("temperature", isLessThanOrEqualTo: highTemp )
 //            .order(by: "createdDate", descending: true)
@@ -71,7 +71,7 @@ class PostStore : ObservableObject {
     
     func fetchPost() {
         print("fetch!")
-        database.collection("TestPosts")
+        database.collection("Posts")
             .order(by: "createdDate", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
@@ -142,7 +142,7 @@ class PostStore : ObservableObject {
     }
     
     func updatePost(_ post: Post) {
-        database.collection("TestPosts").document(post.id).updateData([
+        database.collection("Posts").document(post.id).updateData([
             "id": post.id,
             "userId": post.userId,
             "content": post.content,

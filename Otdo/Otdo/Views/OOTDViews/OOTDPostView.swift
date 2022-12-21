@@ -14,29 +14,29 @@ struct OOTDPostView: View {
     
     var body: some View {
         VStack{
- 
-                AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 150, height: 250)
-                }placeholder: {
-                    ProgressView()
+            
+            AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 250)
+            }placeholder: {
+                ProgressView()
+            }
+            .overlay(
+                HStack{
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 18    ,height: 18)
+                    Text(post.nickName)
+                        .font(.system(size: 14))
+                    Spacer()
+                    Text("\(Int(post.temperature))℃")
                 }
-                .overlay(
-                    HStack{
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 18    ,height: 18)
-                        Text(post.nickName)
-                            .font(.system(size: 14))
-                        Spacer()
-                        Text("\(Int(post.temperature))℃")
-                    }
-                        .padding(10)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                )
-           
+                    .padding(10)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+            )
+            
             Text(post.content)
                 .frame(width: 160, height: 30)
                 .font(.system(size: 12))
