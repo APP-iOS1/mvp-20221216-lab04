@@ -29,7 +29,7 @@ class PostStore : ObservableObject {
             .order(by: "createdDate", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
-                
+                self.uiImage.removeAll()
                 if let snapshot {
                     for document in snapshot.documents {
                         let id = document["id"] as? String ?? ""
@@ -42,6 +42,8 @@ class PostStore : ObservableObject {
                         let createdAt = document["createdAt"] as? Double ?? 0.0
                         
                         self.fetchImage(postId: id, imageName: image)
+                        
+                        
                         self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
                         
                     }
@@ -136,7 +138,7 @@ class PostStore : ObservableObject {
     func fetchImage(postId: String, imageName: String) {
         let ref = storage.reference().child("images/\(postId)/\(imageName)")
         
-        ref.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        ref.getData(maxSize: 4 * 1024 * 1024) { data, error in
             if let error = error {
                 print("error while downloading image: \(error.localizedDescription)")
                 return
