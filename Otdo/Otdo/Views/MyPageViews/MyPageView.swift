@@ -24,10 +24,10 @@ struct MyPageView: View {
                     Circle()
                         .frame(width: 80)
                     VStack(alignment: .leading){
-                        Text("까망이")
+                        Text("\(userInfoStore.users[0].nickName)")
                             .font(.title2)
                             .fontWeight(.heavy)
-                        Text("chap@naver.com")
+                        Text("\(userInfoStore.users[0].email)")
                             .foregroundColor(.gray)
                     }
                     Spacer()

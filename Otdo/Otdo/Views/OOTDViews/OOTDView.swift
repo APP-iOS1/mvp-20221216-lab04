@@ -68,6 +68,7 @@ struct OOTDView: View {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
         }
         .onAppear {
+            userInfoStore.fetchUser()
             postStore.fetchPost()
             print(postStore.posts)
         }
