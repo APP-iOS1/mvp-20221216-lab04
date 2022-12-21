@@ -45,8 +45,8 @@ struct PostDetailView: View {
                 AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
                     image
                         .resizable()
+                        .aspectRatio(contentMode: .fit) 
                         .frame(width: 350, height: 350)
-                        .aspectRatio(contentMode: .fill)
                 }placeholder: {
                     ProgressView()
                 }
