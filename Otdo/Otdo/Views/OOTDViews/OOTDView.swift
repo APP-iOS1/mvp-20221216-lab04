@@ -17,7 +17,6 @@ struct OOTDView: View {
     ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
-    @State var slider = CustomSlider(start: -20, end: 50)
     
     var body: some View {
         NavigationStack{
