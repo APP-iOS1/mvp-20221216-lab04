@@ -17,7 +17,8 @@ struct OOTDView: View {
     ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
-
+    @State var slider = CustomSlider(start: -20, end: 50)
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -28,12 +29,13 @@ struct OOTDView: View {
                         .frame(width: 15, height: 15)
                         .foregroundColor(.gray)
                         .padding(15)
-                    TextField("검색어를 입력해주세요", text: $searchText)
+                    TextField("사용자 검색", text: $searchText)
                 }
-                // FIXME: - SearchBar 배경색 적용 안 됨
                 .background(Color("SearchBar"))
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
+                
+                TemperatureInput()
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
@@ -66,6 +68,9 @@ struct OOTDView: View {
         }// NavigationStack
         .sheet(isPresented: $isShowingAdd) {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
+        }
+        .refreshable {
+            postStore.fetchPost()
         }
         .onAppear {
             postStore.fetchPost()

@@ -12,19 +12,23 @@ struct OOTDPostView: View {
     
     var body: some View {
         VStack{
-            ZStack{
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.gray)
-                    .frame(width:160, height: 250)
-                HStack{
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 18    ,height: 18)
-                    Text(post.nickName)
-                        .font(.system(size: 14))
-                }
-                .offset(x:-40,y: 100)
-            }
+                .fill(Color.gray)
+                .frame(width:160, height: 250)
+                .overlay(
+                    HStack{
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 18    ,height: 18)
+                        Text(post.nickName)
+                            .font(.system(size: 14))
+                        Spacer()
+                        Text("\(Int(post.temperature))℃")
+                    }
+                        .padding(10)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                )
+            
             Text(post.content)
                 .frame(width: 160, height: 30)
                 .font(.system(size: 12))
