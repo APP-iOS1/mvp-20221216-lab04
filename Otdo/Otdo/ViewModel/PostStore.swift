@@ -21,6 +21,7 @@ class PostStore : ObservableObject {
     func fetchPost() {
         print("fetch!")
         database.collection("Posts")
+            .order(by: "createdDate", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
                 

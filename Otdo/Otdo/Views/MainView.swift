@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-
+    @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var userInfoStore: UserInfoStore
+    
     var body: some View {
         TabView {
             WeatherView()
@@ -33,6 +35,9 @@ struct MainView: View {
                         Text("My Page")
                     }
                 }
+        }
+        .onAppear {
+            userInfoStore.fetchUser()
         }
     }
 }

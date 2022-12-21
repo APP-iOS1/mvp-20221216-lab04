@@ -49,16 +49,17 @@ class UserInfoStore: ObservableObject {
     
     func loginUser(emailID: String, password: String) {
         Task {
-                // With the help of Swift Concurrency Auth can be done with Single Line
-                Auth.auth().signIn(withEmail: emailID, password: password) { result, error in
-                    if let error = error {
-                        print("Error : \(error.localizedDescription)")
-                        return
-                    }
+            // With the help of Swift Concurrency Auth can be done with Single Line
+            
+            Auth.auth().signIn(withEmail: emailID, password: password) { result, error in
+                if let error = error {
+                    print("Error : \(error.localizedDescription)")
+                    return
+                }
                 print("User Found")
                 self.currentUser = result?.user
-              
-          
+                
+                print("[현재 로그인] \(self.currentUser)")
             }
             fetchUser()
         }
@@ -76,6 +77,7 @@ class UserInfoStore: ObservableObject {
     }
     
     func fetchUser(){
+        self.users.removeAll()
         print("fetch!")
         guard let userID = Auth.auth().currentUser?.uid else { return }
         print("\(userID)")

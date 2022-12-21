@@ -65,8 +65,11 @@ struct LoginView: View {
                 
                 VStack{
                     Button(action: {
-                        userInfoStore.loginUser(emailID: email, password: password)
-                        viewRouter.currentPage = .mainView
+                            userInfoStore.loginUser(emailID: email, password: password)
+                            
+                        if userInfoStore.currentUser != nil {
+                            viewRouter.currentPage = .mainView
+                        }
                     }){
                         Text("로그인")
                             .foregroundColor(.white)

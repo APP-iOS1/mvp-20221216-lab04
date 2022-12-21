@@ -116,8 +116,8 @@ struct RegisterView: View {
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                             .fill(.black)
                     }
-                    .disabled(nickName == "" || emailID == "" || password == "")
-                    .opacity(nickName == "" || emailID == "" || password == "" ? 0.6 : 1)
+                    .disabled(nickName == "" || emailID == "" || password == "" || password.count < 6)
+                    .opacity(nickName == "" || emailID == "" || password == "" || password.count < 6 ? 0.6 : 1)
                     .padding(.top, 10)
                 
             }

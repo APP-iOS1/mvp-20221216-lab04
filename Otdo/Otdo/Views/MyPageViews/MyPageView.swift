@@ -12,6 +12,8 @@ struct MyPageView: View {
     @EnvironmentObject var userInfoStore: UserInfoStore
     @EnvironmentObject var viewRouter: ViewRouter
 
+    var userNickName: String = "Empty"
+    let userEmail: String = "Empty"
 
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 0, alignment: nil),
