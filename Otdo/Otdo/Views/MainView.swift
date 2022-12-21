@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
     
     var body: some View {
@@ -37,6 +38,7 @@ struct MainView: View {
                 }
         }
         .onAppear {
+            postStore.fetchPost()
             userInfoStore.fetchUser()
         }
     }

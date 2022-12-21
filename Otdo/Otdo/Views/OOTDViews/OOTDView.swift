@@ -17,6 +17,7 @@ struct OOTDView: View {
     ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
+
     
     @State private var lowTemp: String = ""
     @State private var highTemp: String = ""

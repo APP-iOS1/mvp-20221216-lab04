@@ -115,7 +115,7 @@ class PostStore : ObservableObject {
     }
     
     func updatePost(_ post: Post) {
-        database.collection("Posts").document(post.id).updateData([
+        database.collection("TestPosts").document(post.id).updateData([
             "id": post.id,
             "userId": post.userId,
             "content": post.content,
