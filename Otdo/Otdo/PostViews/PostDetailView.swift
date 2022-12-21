@@ -59,6 +59,7 @@ struct PostDetailView: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
+<<<<<<< Updated upstream
                         Text("\(postStore.posts[index].nickName)")
                             .font(.title)
                             .bold()
@@ -66,6 +67,13 @@ struct PostDetailView: View {
                             .padding(.vertical, -1)
                         Text(postStore.posts[index].content)
                             .padding(.leading)
+=======
+                        if !postStore.posts.isEmpty {
+                            Text(postStore.posts[index].content)
+                                .padding(.top, 5)
+                                .padding(.leading)
+                        }
+>>>>>>> Stashed changes
                     }
                     Spacer()
                 }
