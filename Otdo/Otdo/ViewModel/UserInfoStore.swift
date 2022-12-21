@@ -59,7 +59,7 @@ class UserInfoStore: ObservableObject {
                 print("User Found")
                 self.currentUser = result?.user
                 
-                print("[현재 로그인] \(self.currentUser)")
+                print("[현재 로그인] \(String(describing: self.currentUser))")
             }
             fetchUser()
         }

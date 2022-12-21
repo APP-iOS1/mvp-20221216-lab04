@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct OOTDPostView: View {
+    @EnvironmentObject var postStore: PostStore
     let post: Post
+    //    var index: Int
     
     var body: some View {
         VStack{
-                RoundedRectangle(cornerRadius: 10)
-                .fill(Color.gray)
-                .frame(width:160, height: 250)
+ 
+                AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 150, height: 250)
+                }placeholder: {
+                    ProgressView()
+                }
                 .overlay(
                     HStack{
                         Circle()
@@ -28,7 +36,7 @@ struct OOTDPostView: View {
                         .padding(10)
                         .frame(maxHeight: .infinity, alignment: .bottom)
                 )
-            
+           
             Text(post.content)
                 .frame(width: 160, height: 30)
                 .font(.system(size: 12))
@@ -52,6 +60,10 @@ struct OOTDPostView: View {
             }
             .font(.system(size: 12))
             .padding(.bottom)
+        }
+        .onAppear {
+            postStore.fetchPost()
+           
         }
     }
 }

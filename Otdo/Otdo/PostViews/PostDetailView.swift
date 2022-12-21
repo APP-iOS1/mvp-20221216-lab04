@@ -11,20 +11,26 @@ import FirebaseAuth
 struct PostDetailView: View {
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
+    @Environment(\.dismiss) private var dismiss
+
     
     @State private var showingMenu: Bool = false
     @State private var showingEdit: Bool = false
     
     @State var post: Post
     
-    let index: Int
+    var index: Int
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
                 HStack {
-                    Text("\(postStore.posts[index].nickName)")
-                        .bold()
+                    if !postStore.posts.isEmpty {
+                    
+                        Text("\(postStore.posts[index].nickName)")
+                            .bold()
+                        
+                    }
                     Spacer()
                     if post.userId == Auth.auth().currentUser?.uid {
                         Button {
@@ -36,13 +42,14 @@ struct PostDetailView: View {
                     }
                 }
                 .padding()
-                
-                Image("PostDetailImage")
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
-                    .border(.gray.opacity(1))
-                    .padding(20)
-                
+                AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 150, height: 250)
+                }placeholder: {
+                    ProgressView()
+                }
                 HStack {
                     Image(systemName: "heart.fill")
                         .padding(.leading)
@@ -59,13 +66,16 @@ struct PostDetailView: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("\(postStore.posts[index].nickName)")
-                            .font(.title)
-                            .bold()
-                            .padding(.leading)
-                            .padding(.vertical, -1)
-                        Text(postStore.posts[index].content)
-                            .padding(.leading)
+                        if !postStore.posts.isEmpty {
+                            
+                            Text("\(postStore.posts[index].nickName)")
+                                .font(.title)
+                                .bold()
+                                .padding(.leading)
+                                .padding(.vertical, -1)
+                            Text(postStore.posts[index].content)
+                                .padding(.leading)
+                        }
                     }
                     Spacer()
                 }
@@ -114,6 +124,7 @@ struct PostDetailView: View {
                 .padding(.bottom, 10)
             }
         }
+
         .sheet(isPresented: $showingMenu, content: {
 //            List {
                     Button {
@@ -131,6 +142,8 @@ struct PostDetailView: View {
                     
                     Button {
                         postStore.removePost(post)
+                    showingMenu.toggle() //false
+                    dismiss()
                     } label: {
                         Text("글 삭제하기")
                             .foregroundColor(.white)
@@ -138,7 +151,7 @@ struct PostDetailView: View {
                     .frame(maxWidth: UIScreen.main.bounds.width - 20, minHeight: 50, alignment: .center)
                     .background(Color.black)
                     .cornerRadius(10)
-//            }
+  //          }
             
             .presentationDetents([.height(150)])
         })

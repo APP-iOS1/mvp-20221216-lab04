@@ -9,14 +9,30 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
+import UIKit
+
+/*
+ 우리가 해야할것
+ [넣을때]
+ 1. 앱의 이미지를 선택해서, 선택한 이미지를 스토리지와 파이어 스토어에 넣는다.!
+ - 파이어 스토어에는 이미지 - 이미지 이름을 넣고
+ - 스토리지에는 이미지 이름의 사진데이터를 넣는다.
+ 
+ [꺼내올때]
+ 2. 포스트 이미지를 어싱크 이미지로 해서 이미지를 뿌려준다.
+ 
+ 
+ 
+ */
 
 class PostStore : ObservableObject {
     @Published var posts : [Post] = []
     let database = Firestore.firestore()
     
-    init(){
-        posts = []
-    }
+    private var storage = Storage.storage()
+    
+    
     
     func fetchPostByTemperature(lowTemperature: String, highTemperature: String) {
         let lowTemp: Double = Double(lowTemperature) ?? -20.0
@@ -70,8 +86,10 @@ class PostStore : ObservableObject {
                         let likes = document["likes"] as? [String:Bool] ?? [:]
                         let temperature = document["temperature"] as? Double ?? 0.0
                         let createdAt = document["createdAt"] as? Double ?? 0.0
-                        
+                        // let postImage = document["postImage"] as? UIImage ?? nil
+            
                         self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
+                        
                     }
                     print(self.posts)
                 }
@@ -81,13 +99,14 @@ class PostStore : ObservableObject {
     func addPost(newPost: Post) {
         Task {
             do {
-                let _ = try await database.collection("TestPosts")
+                
+                let _ = try await database.collection("Posts")
                     .document("\(newPost.id)")
                     .setData(["id": newPost.id,
                               "userId": newPost.userId,
                               "nickName": newPost.nickName,
                               "content": newPost.content,
-                              "image": newPost.image,
+                              "image": newPost.image, //이미지이름
                               "likes": newPost.likes,
                               "temperature": newPost.temperature,
                               "createdAt": newPost.createdAt,
@@ -100,6 +119,7 @@ class PostStore : ObservableObject {
             }
         }
         fetchPost()
+    
     }
     
     func removePost(_ post:Post) {
@@ -109,6 +129,13 @@ class PostStore : ObservableObject {
                 print("Error removing document: \(error)")
             } else {
                 print("Document successfully removed!")
+            }
+        }
+        
+        let imagesRef = storage.reference().child("images/\(post.id)")
+        imagesRef.delete { error in
+            if let error = error {
+                print("Error removing image from storage: \(error.localizedDescription)")
             }
         }
         fetchPost()
@@ -133,6 +160,35 @@ class PostStore : ObservableObject {
         fetchPost()
     }
     
+    // 사진 업로드
+    func uploadImage(image: Data?, name: String) {
+        let storageRef = storage.reference().child("images/\(name)") //images/postId/imageName
+        let data = image
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        if let data = data{
+            storageRef.putData(data, metadata: metadata) {(metadata, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                if let metadata = metadata {
+                    print("metadata: \(metadata)")
+                }
+            }
+        }
+    }
+    
+//    // 사진 불러오기
+//    func fetchImage(postId: String, imageName: String){
+//        let ref = storage.reference().child("images/\(postId)/\(imageName)")
+//
+//
+//
+//                // posts배열 중에 postId가 동일한 postImage라는 항목에 Image를 할당해준다.
+//
+//            }
+
 }
 
 
