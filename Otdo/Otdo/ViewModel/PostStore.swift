@@ -18,9 +18,44 @@ class PostStore : ObservableObject {
         posts = []
     }
     
+    func fetchPostByTemperature(lowTemperature: String, highTemperature: String) {
+        let lowTemp: Double = Double(lowTemperature) ?? -20.0
+        let highTemp: Double = Double(highTemperature) ?? 50.0
+        
+        print("fetchByTemperature!")
+        
+        database.collection("TestPosts")
+            .whereField("temperature", isGreaterThanOrEqualTo: lowTemp)
+            .whereField("temperature", isLessThanOrEqualTo: highTemp )
+//            .order(by: "createdDate", descending: true)
+        // FIXME: - 파베에서 복합쿼리를 사용할 때 복합색인을 추가해주어야 함
+        // 지금은 이해 못 해서 날짜 정렬 잠시 포기하고 temperature 필드값만 확인해줌T^T
+        // 한 건지 안 한 건지 모르겠다,,?
+            .getDocuments{ (snapshot, error ) in
+                self.posts.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                        let id = document["id"] as? String ?? ""
+                        let userId = document["userId"] as? String ?? ""
+                        let content = document["content"] as? String ?? ""
+                        let nickName = document["nickName"] as? String ?? ""
+                        let image = document["image"] as? String ?? ""
+                        let likes = document["likes"] as? [String:Bool] ?? [:]
+                        let temperature = document["temperature"] as? Double ?? 0.0
+                        let createdAt = document["createdAt"] as? Double ?? 0.0
+                        
+                        self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
+                    }
+                    print(self.posts)
+                }
+            }
+    }
+    
+    
     func fetchPost() {
         print("fetch!")
-        database.collection("Posts")
+        database.collection("TestPosts")
             .order(by: "createdDate", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
@@ -46,7 +81,7 @@ class PostStore : ObservableObject {
     func addPost(newPost: Post) {
         Task {
             do {
-                let _ = try await database.collection("Posts")
+                let _ = try await database.collection("TestPosts")
                     .document("\(newPost.id)")
                     .setData(["id": newPost.id,
                               "userId": newPost.userId,
@@ -80,7 +115,7 @@ class PostStore : ObservableObject {
     }
     
     func updatePost(_ post: Post) {
-        database.collection("Posts").document(post.id).updateData([
+        database.collection("TestPosts").document(post.id).updateData([
             "id": post.id,
             "userId": post.userId,
             "content": post.content,
@@ -99,4 +134,5 @@ class PostStore : ObservableObject {
     }
     
 }
+
 

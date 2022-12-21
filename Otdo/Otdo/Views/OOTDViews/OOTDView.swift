@@ -18,6 +18,11 @@ struct OOTDView: View {
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
 
+    
+    @State private var lowTemp: String = ""
+    @State private var highTemp: String = ""
+    
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -28,12 +33,13 @@ struct OOTDView: View {
                         .frame(width: 15, height: 15)
                         .foregroundColor(.gray)
                         .padding(15)
-                    TextField("검색어를 입력해주세요", text: $searchText)
+                    TextField("사용자 검색", text: $searchText)
                 }
-                // FIXME: - SearchBar 배경색 적용 안 됨
                 .background(Color("SearchBar"))
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
+                
+                TemperatureInput(lowTemp: $lowTemp, highTemp: $highTemp)
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
@@ -67,9 +73,13 @@ struct OOTDView: View {
         .sheet(isPresented: $isShowingAdd) {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
         }
+        .refreshable {
+            postStore.fetchPost()
+            lowTemp = ""
+            highTemp = ""
+        }
         .onAppear {
             postStore.fetchPost()
-            print(postStore.posts)
         }
     }
 }
