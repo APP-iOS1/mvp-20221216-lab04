@@ -10,18 +10,18 @@ import SwiftUI
 struct OOTDPostView: View {
     @EnvironmentObject var postStore: PostStore
     let post: Post
-    var index: Int
+    //    var index: Int
     
     var body: some View {
         VStack{
             ZStack{
-                if postStore.uiImage != []{
-                    Image(uiImage: postStore.uiImage[index])
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width:160, height: 250)
-                } else {
-                    
+                ForEach(postStore.images) { image in
+                    if image.id == post.id{
+                        Image(uiImage: image.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width:160, height: 250)
+                    }
                 }
                 HStack{
                     Circle()
@@ -58,6 +58,7 @@ struct OOTDPostView: View {
         }
         .onAppear {
             postStore.fetchPost()
+           
         }
     }
 }

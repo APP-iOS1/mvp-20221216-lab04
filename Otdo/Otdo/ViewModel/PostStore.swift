@@ -17,11 +17,8 @@ class PostStore : ObservableObject {
     let database = Firestore.firestore()
     
     private var storage = Storage.storage()
-    @Published var uiImage: [UIImage] = []
     
-    init(){
-        posts = []
-    }
+    
     
     func fetchPost() {
         print("fetch!")
@@ -29,7 +26,7 @@ class PostStore : ObservableObject {
             .order(by: "createdDate", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
-                self.uiImage.removeAll()
+//                self.uiImage.removeAll()
                 if let snapshot {
                     for document in snapshot.documents {
                         let id = document["id"] as? String ?? ""
@@ -40,10 +37,8 @@ class PostStore : ObservableObject {
                         let likes = document["likes"] as? [String:Bool] ?? [:]
                         let temperature = document["temperature"] as? Double ?? 0.0
                         let createdAt = document["createdAt"] as? Double ?? 0.0
-                        
-                        self.fetchImage(postId: id, imageName: image)
-                        
-                        
+                        // let postImage = document["postImage"] as? UIImage ?? nil
+            
                         self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
                         
                     }
@@ -116,8 +111,8 @@ class PostStore : ObservableObject {
     }
     
     // 사진 업로드
-    func uploadImage(image: Data?, name: String) {
-        let storageRef = storage.reference().child("images/\(name)") //images/postId/imageName
+    func uploadImage(postId: String, image: Data?, name: String) {
+        let storageRef = storage.reference().child("images/\(post)/\(name)") //images/postId/imageName
         let data = image
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpg"
@@ -135,18 +130,15 @@ class PostStore : ObservableObject {
     }
     
     // 사진 불러오기
-    func fetchImage(postId: String, imageName: String) {
+    func fetchImage(postId: String, imageName: String){
         let ref = storage.reference().child("images/\(postId)/\(imageName)")
         
-        ref.getData(maxSize: 4 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("error while downloading image: \(error.localizedDescription)")
-                return
-            } else {
-                let image = UIImage(data: data!)
-                self.uiImage.append(image!)
+        ref.get
+                
+                
+                // posts배열 중에 postId가 동일한 postImage라는 항목에 Image를 할당해준다.
+                
             }
-            
         }
     }
 }

@@ -44,7 +44,7 @@ struct OOTDView: View {
                         content:  {
                             ForEach(Array(postStore.posts.enumerated()), id: \.offset) { (index, post) in
                                 NavigationLink(destination: PostDetailView(post: post, index: index)) {
-                                    OOTDPostView(post: post, index: index)
+                                    OOTDPostView(post: post)
                                 }
                                 .foregroundColor(.black).environmentObject(postStore).environmentObject(userInfoStore)
                             }
@@ -70,12 +70,13 @@ struct OOTDView: View {
         .onAppear {
             postStore.fetchPost()
             print(postStore.posts)
-            print("처음: \(postStore.uiImage)")
+        
             print("=======================")
         }
         .refreshable {
             postStore.fetchPost()
-            print("이거이거이거어\(postStore.uiImage)")
+            
+     
         }
     }
 }

@@ -37,11 +37,19 @@ struct PostDetailView: View {
                 }
                 .padding()
                 
-                Image("PostDetailImage")
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
-                    .border(.gray.opacity(1))
-                    .padding(20)
+                ForEach(postStore.images) { image in
+                    if image.id == post.id{
+                        Image(uiImage: image.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width:160, height: 250)
+                    }
+                }
+//                Image("PostDetailImage")
+//                    .resizable()
+//                    .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
+//                    .border(.gray.opacity(1))
+//                    .padding(20)
                 
                 HStack {
                     Image(systemName: "heart.fill")
@@ -132,6 +140,9 @@ struct PostDetailView: View {
                 }
             }
             .presentationDetents([.medium, .large])
+            .onAppear{
+                postStore.fetchImage(postId: post.id, imageName: post.id + "/" + post.image)
+            }
         }
         .fullScreenCover(isPresented: $showingEdit) {
             PostEditView(content: post.content, post: $post)
