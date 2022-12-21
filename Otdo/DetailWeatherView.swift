@@ -17,6 +17,8 @@ struct DetailWeatherView: View {
     let week = ["화", "수", "목", "금", "토", "일", "월"]
     var weatherImages = ["sun.max.fill", "cloud.sun.fill", "cloud.rain.fill", "sun.max.fill", "cloud.sun.fill", "sun.max.fill", "sun.max.fill"]
     
+    let lowTemperature = ["-4º", "-12º", "-14º", "-12º", "-10º", "-10º", "-9º"]
+    let highTemperature = ["4º", "-4º", "-8º", "-4º", "-1º", "-1º", "2º"]
     
     var body: some View {
         ZStack {
@@ -120,9 +122,11 @@ struct DetailWeatherView: View {
                         Image(systemName: weatherImages[index])
                             .renderingMode(.original)
                             .font(.title)
-                        Text("16°/28°")
+                        Spacer()
+                        Text("\(lowTemperature[index])/\(highTemperature[index])")
                             .font(.subheadline)
                     }
+                    .frame(width: 130)
                 }
             }
             .padding()

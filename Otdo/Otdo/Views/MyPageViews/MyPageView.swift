@@ -28,7 +28,7 @@ struct MyPageView: View {
             VStack {
                 HStack {
                     Circle()
-                        .frame(width: 80)
+                        .frame(width: 60)
                     VStack(alignment: .leading){
                         Text("\(userInfoStore.users[0].nickName)")
                             .font(.title2)
