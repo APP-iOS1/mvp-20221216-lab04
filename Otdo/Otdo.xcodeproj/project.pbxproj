@@ -110,7 +110,6 @@
 				7F674ABA29501F8D0011E71D /* GoogleService-Info.plist */,
 				7F674AA329501DC90011E71D /* OtdoApp.swift */,
 				AD3EF33F29503DBE00837A81 /* ViewRouter.swift */,
-				EAE1D9EA2952A8D800A3FCE3 /* TemperatureInput.swift */,
 				7F674AC0295024040011E71D /* Models */,
 				7F674AC529503B160011E71D /* Views */,
 				EADBF5B129509EBF004F890F /* ViewModel */,
@@ -188,6 +187,7 @@
 		AD735CC4295144BF00AD8F61 /* OOTDViews */ = {
 			isa = PBXGroup;
 			children = (
+				EAE1D9EA2952A8D800A3FCE3 /* TemperatureInput.swift */,
 				7F674AC829503BBA0011E71D /* OOTDView.swift */,
 				EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */,
 			);

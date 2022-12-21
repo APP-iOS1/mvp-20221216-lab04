@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct TemperatureInput: View {
-    @State private var lowTemp: String = "0"
-    @State private var highTemp: String = "0"
-
+    @EnvironmentObject var postStore: PostStore
+    
+    @Binding var lowTemp: String
+    @Binding var highTemp: String
+    
     var body: some View {
         VStack {
                 
@@ -31,7 +33,7 @@ struct TemperatureInput: View {
                 Text("℃")
                     .padding(.leading, -6)
                 Button {
-                    print("")
+                    postStore.fetchPostByTemperature(lowTemperature: lowTemp, highTemperature: highTemp)
                 } label: {
                     Text("설정")
                         .foregroundColor(Color.white)
@@ -45,8 +47,8 @@ struct TemperatureInput: View {
     }
 }
 
-struct TemperatureInput_Previews: PreviewProvider {
-    static var previews: some View {
-        TemperatureInput()
-    }
-}
+//struct TemperatureInput_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TemperatureInput()
+//    }
+//}
