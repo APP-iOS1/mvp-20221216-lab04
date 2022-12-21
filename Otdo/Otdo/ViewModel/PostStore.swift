@@ -9,10 +9,14 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class PostStore : ObservableObject {
     @Published var posts : [Post] = []
     let database = Firestore.firestore()
+    
+    private var storage = Storage.storage()
+    @Published var uiImage: [UIImage] = []
     
     init(){
         posts = []
@@ -36,7 +40,9 @@ class PostStore : ObservableObject {
                         let temperature = document["temperature"] as? Double ?? 0.0
                         let createdAt = document["createdAt"] as? Double ?? 0.0
                         
+                        self.fetchImage(postId: id, imageName: image)
                         self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
+                        
                     }
                     print(self.posts)
                 }
@@ -46,6 +52,7 @@ class PostStore : ObservableObject {
     func addPost(newPost: Post) {
         Task {
             do {
+                
                 let _ = try await database.collection("Posts")
                     .document("\(newPost.id)")
                     .setData(["id": newPost.id,
@@ -76,6 +83,13 @@ class PostStore : ObservableObject {
                 print("Document successfully removed!")
             }
         }
+        
+        let imagesRef = storage.reference().child("images/\(post.id)")
+        imagesRef.delete { error in
+            if let error = error {
+                print("Error removing image from storage: \(error.localizedDescription)")
+            }
+        }
         fetchPost()
     }
     
@@ -98,5 +112,39 @@ class PostStore : ObservableObject {
         fetchPost()
     }
     
+    // 사진 업로드
+    func uploadImage(image: Data?, name: String) {
+        let storageRef = storage.reference().child("images/\(name)")
+        let data = image
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        if let data = data{
+            storageRef.putData(data, metadata: metadata) {(metadata, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                if let metadata = metadata {
+                    print("metadata: \(metadata)")
+                }
+            }
+        }
+    }
+    
+    // 사진 불러오기
+    func fetchImage(postId: String, imageName: String) {
+        let ref = storage.reference().child("images/\(postId)/\(imageName)")
+        
+        ref.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("error while downloading image: \(error.localizedDescription)")
+                return
+            } else {
+                let image = UIImage(data: data!)
+                self.uiImage.append(image!)
+            }
+            
+        }
+    }
 }
 
