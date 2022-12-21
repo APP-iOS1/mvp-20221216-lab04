@@ -18,8 +18,9 @@ struct OOTDPostView: View {
             AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
                 image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 150, height: 250)
+                    .frame(width: 170, height: 250)
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(15)
             }placeholder: {
                 ProgressView()
             }
