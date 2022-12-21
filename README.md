@@ -19,7 +19,10 @@
 ## My Page Tab
  <img width="200" src="https://user-images.githubusercontent.com/57763334/208874031-b65ebc72-e4ec-4e0c-b25f-82c636c791b8.png"> 
 
+### 설치 가이드
+GoogleService-Info.plist는 git에 올라가있어서 따로 추가 안하셔도 됩니다
 
+### 
 [Login] 
 로그인 화면에서 회원가입화면으로 넘어간다
 - 이메일 로그인만 가능 
