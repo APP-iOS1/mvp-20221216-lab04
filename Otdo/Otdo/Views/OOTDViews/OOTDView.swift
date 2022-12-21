@@ -17,7 +17,10 @@ struct OOTDView: View {
     ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
-    @State var slider = CustomSlider(start: -20, end: 50)
+    
+    @State private var lowTemp: String = ""
+    @State private var highTemp: String = ""
+    
     
     var body: some View {
         NavigationStack{
@@ -35,7 +38,7 @@ struct OOTDView: View {
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
                 
-                TemperatureInput()
+                TemperatureInput(lowTemp: $lowTemp, highTemp: $highTemp)
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
@@ -71,10 +74,11 @@ struct OOTDView: View {
         }
         .refreshable {
             postStore.fetchPost()
+            lowTemp = ""
+            highTemp = ""
         }
         .onAppear {
             postStore.fetchPost()
-            print(postStore.posts)
         }
     }
 }
