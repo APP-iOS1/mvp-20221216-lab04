@@ -7,8 +7,8 @@
 |:-:|:-:|
 
 ## Weather Tab
-| <img width="200" src="https://user-images.githubusercontent.com/57763334/208871300-d00ef4f9-5b7e-42c7-ada1-aacef0461eb0.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208871760-59db30d6-b35b-4be4-9ef9-14de60f64c8a.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208872000-f13d9ac4-e618-4492-a7e4-36cf1df7295d.png"> |
-|:-:|:-:|:-:|
+| <img width="200" src="https://user-images.githubusercontent.com/57763334/208871300-d00ef4f9-5b7e-42c7-ada1-aacef0461eb0.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208871760-59db30d6-b35b-4be4-9ef9-14de60f64c8a.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208872000-f13d9ac4-e618-4492-a7e4-36cf1df7295d.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208876898-afeb43ec-74e9-4a4a-baca-fdd5b6192d5a.png"> |
+|:-:|:-:|:-:|:-:|
 
 
 ## OOTD Tab
