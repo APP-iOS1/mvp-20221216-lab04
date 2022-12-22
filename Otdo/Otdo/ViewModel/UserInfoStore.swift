@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import GoogleSignIn
 
 class UserInfoStore: ObservableObject {
     @Published var users: [UserInfo] = []
@@ -98,5 +99,81 @@ class UserInfoStore: ObservableObject {
                     print("\(self.users)")
                 }
             }
+    }
+    
+    
+    func googleSignIn() {
+        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+            GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
+                googleAuthenticateUser(for: user, with: error)
+            }
+        } else {
+            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+            
+            let configuration = GIDConfiguration(clientID: clientID)
+            
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+            guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
+            
+            GIDSignIn.sharedInstance.signIn(with: configuration, presenting: rootViewController) { [unowned self] user, error in
+                googleAuthenticateUser(for: user, with: error)
+            }
+        }
+    }
+    
+    private func googleAuthenticateUser(for user: GIDGoogleUser?, with error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        
+        guard let authentication = user?.authentication, let idToken = authentication.idToken else { return }
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+        
+        Auth.auth().signIn(with: credential) { [unowned self] (result, error) in
+            if let error = error {
+                print("Error : \(error.localizedDescription)")
+            } else {
+                self.currentUser = result?.user
+                Task {
+                    do {
+                        guard let userUID = Auth.auth().currentUser?.uid else { return }
+
+                        let _ = try await database.collection("Users")
+                            .document(userUID)
+                            .setData([
+                                "id": userUID,
+                                "markedPostID": [],
+                                "email": result?.user.email,
+                                "nickName": result?.user.displayName,
+                                "gender": "",
+                                "age": "",
+                                "profileImage": ""
+                            ])
+                    } catch {
+                        await MainActor.run(body: {
+                            print("\(error.localizedDescription)")
+                        })
+                    }
+                }
+
+                print("[현재 로그인] \(String(describing: self.currentUser))")
+            }
+        }
+    }
+    
+    func googleSignOut() {
+        // 1
+        GIDSignIn.sharedInstance.signOut()
+        
+        do {
+            // 2
+            try Auth.auth().signOut()
+            
+            print("로그아웃 성공")
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

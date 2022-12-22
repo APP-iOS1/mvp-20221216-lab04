@@ -79,6 +79,7 @@ struct MyPageView: View {
             .toolbar{
                 Button(action: {
                     userInfoStore.logout()
+                    userInfoStore.googleSignOut()
                     viewRouter.currentPage = .loginView
                 }){
                     Text("Logout")
