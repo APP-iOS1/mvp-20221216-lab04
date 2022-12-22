@@ -19,7 +19,7 @@ class CommentStore: ObservableObject {
     
     func fetchComments(_ post: Post) {
         database.collection("Posts").document("\(post.id)").collection("Comments")
-            .order(by: "createdDate", descending: true)
+            .order(by: "createdAt", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.comments.removeAll()
                 
@@ -30,7 +30,7 @@ class CommentStore: ObservableObject {
                         let content = document["content"] as? String ?? ""
                         let createdAt = document["createdAt"] as? Double ?? 0.0
                         
-                        let comment: Comment = Comment(id: id, userId: userId, content: userId, createdAt: createdAt)
+                        let comment: Comment = Comment(id: id, userId: userId, content: content, createdAt: createdAt)
                         self.comments.append(comment)
                         
                     }
