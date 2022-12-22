@@ -17,7 +17,7 @@ struct PostAddView: View {
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var location: String = ""
-    
+    @State private var showingAlert = false
     @State private var selectedImage: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
 
@@ -68,23 +68,27 @@ struct PostAddView: View {
             .padding()
             
             Button {
-                print(userInfoStore.users.count)
-                for user in userInfoStore.users {
-                    if user.id == userInfoStore.currentUser?.uid {
-                        let id: String = UUID().uuidString
-                        let createdAt = Date().timeIntervalSince1970
-                        let imageName: String = UUID().uuidString
-                        let post: Post = Post(id: id, userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: imageName, likes: [:], temperature: 2.0, createdAt: createdAt)
-                        postStore.uploadImage(image: selectedImageData, postImage: imageName)
-                        postStore.addPost(post)
-//                        for post in postStore.posts {
-//                            postStore.retrievePhotos(post)
-//                        }
-//                        postStore.fetchPost()
-
+                if selectedImageData != nil {
+                    for user in userInfoStore.users {
+                        if user.id == userInfoStore.currentUser?.uid {
+                            let id: String = UUID().uuidString
+                            let createdAt = Date().timeIntervalSince1970
+                            let imageName: String = UUID().uuidString
+                            let post: Post = Post(id: id, userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: imageName, likes: [:], temperature: 2.0, createdAt: createdAt)
+                            postStore.uploadImage(image: selectedImageData, postImage: imageName)
+                            postStore.addPost(post)
+                            //                        for post in postStore.posts {
+                            //                            postStore.retrievePhotos(post)
+                            //                        }
+                            //                        postStore.fetchPost()
+                            
+                        }
                     }
+                    isShowingAdd.toggle()
                 }
-                isShowingAdd.toggle()
+                else {
+                    showingAlert.toggle()
+                }
             } label: {
                 ZStack{
                     Rectangle()
@@ -93,6 +97,12 @@ struct PostAddView: View {
                         .frame(width: UIScreen.main.bounds.size.width * 0.9, height: UIScreen.main.bounds.size.height * 0.07)
                     Text("게시물 추가")
                         .foregroundColor(.white)
+                }
+            }
+            .alert("사진을 선택해 주세요", isPresented: $showingAlert){
+                Button("확인", role: .cancel){
+                    showingAlert.toggle()
+                    
                 }
             }
         }

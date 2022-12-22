@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct PostEditView: View {
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
@@ -15,16 +15,50 @@ struct PostEditView: View {
 
     @State var content: String
     @State private var location: String = ""
+    @State private var editSelectedImage: PhotosPickerItem? = nil
+    @State private var editselectedImageData: Data? = nil
+
     
     var post: Post
     
     var body: some View {
         VStack {
-            Image("PostDetailImage")
-                .resizable()
-                .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
-                .border(.gray.opacity(1))
-                .padding(20)
+            PhotosPicker(
+                selection: $editSelectedImage,
+                matching: .images,
+                photoLibrary: .shared()) {
+                    if editselectedImageData == nil {
+                        ForEach(postStore.images, id: \.self) { postImage in
+                            if postImage.id == post.image {
+                                
+                                Image(uiImage: postImage.image)
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
+                                    .border(.gray.opacity(1))
+                                    .padding(20)
+                                    .padding(.top,10)
+                            }
+                        }
+                    } else {
+                        if let editselectedImageData,
+                           let uiImage = UIImage(data: editselectedImageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
+                                .border(.gray.opacity(1))
+                                .padding(20)
+                        }
+                    }
+                }
+                .onChange(of: editSelectedImage) { newItem in
+                    Task {
+                        // Retrieve selected asset in the form of Data
+                        if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                            editselectedImageData = data
+//                            postStore.removeImage(post)
+                        }
+                    }
+                }
             VStack(alignment: .leading) {
                 Divider()
                 TextField("내용을 입력해주세요", text: $content)
@@ -43,7 +77,12 @@ struct PostEditView: View {
                 for user in userInfoStore.users {
                     if user.id == userInfoStore.currentUser?.uid {
                         let post = Post(id: post.id, userId: post.userId, nickName: post.nickName, content: content, image: post.image, likes: post.likes, temperature: post.temperature, createdAt: post.createdAt)
+                        if editselectedImageData == nil {
+                            postStore.removeImage(post)
+                            postStore.uploadImage(image: editselectedImageData, postImage: post.image)
+                        }
                         postStore.updatePost(post)
+
                     }
                 }
                 dismiss()

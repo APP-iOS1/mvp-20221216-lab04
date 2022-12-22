@@ -135,13 +135,18 @@ class PostStore : ObservableObject {
             }
         }
         
+        removeImage(post)
+        
+        fetchPost()
+    }
+    
+    func removeImage(_ post: Post) {
         let imagesRef = storage.reference().child("images/\(post.image)")
         imagesRef.delete { error in
             if let error = error {
                 print("Error removing image from storage: \(error.localizedDescription)")
             }
         }
-        fetchPost()
     }
     
     func updatePost(_ post: Post) {
