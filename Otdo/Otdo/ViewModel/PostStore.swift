@@ -18,15 +18,12 @@ class PostStore : ObservableObject {
         posts = []
     }
     
-    func fetchPostByTemperature(lowTemperature: String, highTemperature: String) {
-        let lowTemp: Double = Double(lowTemperature) ?? -20.0
-        let highTemp: Double = Double(highTemperature) ?? 50.0
-        
+    func fetchPostByTemperature(lowTemperature: Double, highTemperature: Double) {
         print("fetchByTemperature!")
         
-        database.collection("TestPosts")
-            .whereField("temperature", isGreaterThanOrEqualTo: lowTemp)
-            .whereField("temperature", isLessThanOrEqualTo: highTemp )
+        database.collection("Posts")
+            .whereField("temperature", isGreaterThanOrEqualTo: lowTemperature)
+            .whereField("temperature", isLessThanOrEqualTo: highTemperature )
 //            .order(by: "createdDate", descending: true)
         // FIXME: - 파베에서 복합쿼리를 사용할 때 복합색인을 추가해주어야 함
         // 지금은 이해 못 해서 날짜 정렬 잠시 포기하고 temperature 필드값만 확인해줌T^T

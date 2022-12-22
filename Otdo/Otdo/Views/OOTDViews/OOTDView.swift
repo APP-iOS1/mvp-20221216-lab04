@@ -18,10 +18,6 @@ struct OOTDView: View {
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
     
-    @State private var lowTemp: String = ""
-    @State private var highTemp: String = ""
-    
-    
     var body: some View {
         NavigationStack{
             VStack{
@@ -38,7 +34,7 @@ struct OOTDView: View {
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
                 
-                TemperatureInput(lowTemp: $lowTemp, highTemp: $highTemp)
+                TemperatureSliderView()
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
@@ -74,8 +70,9 @@ struct OOTDView: View {
         }
         .refreshable {
             postStore.fetchPost()
-            lowTemp = ""
-            highTemp = ""
+            for post in postStore.posts {
+                postStore.retrievePhotos(post)
+            }
         }
         .onAppear {
             postStore.fetchPost()
