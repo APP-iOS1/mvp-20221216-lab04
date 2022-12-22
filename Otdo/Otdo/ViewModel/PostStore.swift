@@ -108,7 +108,7 @@ class PostStore : ObservableObject {
                 let _ = try await database.collection("Posts")
                     .document(post.id)
                     .setData(["id": post.id,
-                              "userId": post.userId,
+                              "userId": Auth.auth().currentUser?.uid ?? "",
                               "nickName": post.nickName,
                               "content": post.content,
                               "image": post.image, //이미지이름

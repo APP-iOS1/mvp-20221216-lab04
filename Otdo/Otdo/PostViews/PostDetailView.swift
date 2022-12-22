@@ -28,31 +28,15 @@ struct PostDetailView: View {
         VStack{
             ScrollView(showsIndicators: false) {
                 VStack {
-                    HStack {
-                        if !postStore.posts.isEmpty {
-                            
-                            Text("\(postStore.posts[index].nickName)")
-                                .bold()
-                            
-                        }
-                        Spacer()
-                        if post.userId == Auth.auth().currentUser?.uid {
-                            Button {
-                                showingMenu.toggle()
-                            } label: {
-                                Image(systemName: "ellipsis")
-                                    .rotationEffect(.init(degrees: 90))
-                            }
-                        }
-                    }
-                    .padding()
                     ForEach(postStore.images, id: \.self) { postImage in
                         if postImage.id == post.image {
                             
                             Image(uiImage: postImage.image)
                                 .resizable()
-                                .frame(width: 200, height: 200)
-                                .aspectRatio(contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
+                                .border(.gray.opacity(1))
+                                .padding(20)
+                                .padding(.top,10)
                         }
                     }
                     HStack {
@@ -63,7 +47,7 @@ struct PostDetailView: View {
                             .padding(.trailing, -5)
                         Image(systemName: "message")
                             .padding(.trailing, -5)
-                        Text("26")
+                        Text("\(commentStore.comments.count)")
                         Spacer()
                         Text("서울시 중랑구")
                             .padding(.trailing)
@@ -89,7 +73,7 @@ struct PostDetailView: View {
                     
                     VStack {
                         ForEach(commentStore.comments) { comment in
-                            CommentView(post: $post, comment: comment)
+                            CommentView(post: $post, index: index, comment: comment)
                                 .padding(.vertical, 5)
                             Divider()
                         }
@@ -157,17 +141,18 @@ struct PostDetailView: View {
 
 struct CommentView: View {
     @State private var isPresentingConfirm: Bool = false
+    @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var commentStore: CommentStore
     
     @Binding var post: Post
-    
+    var index: Int
     var comment: Comment
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
-                    Text(comment.userId)
+                    Text(postStore.posts[index].nickName)
                         .fontWeight(.black)
                     Spacer()
                     if comment.userId == Auth.auth().currentUser?.uid {

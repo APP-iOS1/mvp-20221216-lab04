@@ -28,18 +28,18 @@ struct PostAddView: View {
                 matching: .images,
                 photoLibrary: .shared()) {
                     if selectedImageData == nil {
-                        Image("PostDetailImage")
-                            .resizable()
+                        Text("이미지를 선택해주세요")
+                            .font(.largeTitle)
                             .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
-                            .border(.gray.opacity(1))
                             .padding(20)
                     } else {
                         if let selectedImageData,
                            let uiImage = UIImage(data: selectedImageData) {
                             Image(uiImage: uiImage)
                                 .resizable()
-                                .scaledToFit()
-                                .frame(width: 250, height: 250)
+                                .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.45)
+                                .border(.gray.opacity(1))
+                                .padding(20)
                         }
                     }
                 }

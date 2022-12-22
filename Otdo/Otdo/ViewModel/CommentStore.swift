@@ -43,7 +43,7 @@ class CommentStore: ObservableObject {
         database.collection("Posts").document("\(post.id)").collection("Comments").document("\(comment.id)")
             .setData([
                 "id": comment.id,
-                "userId": comment.userId,
+                "userId": Auth.auth().currentUser?.uid ?? "",
                 "content": comment.content,
                 "createdAt": comment.createdAt,
             ])
