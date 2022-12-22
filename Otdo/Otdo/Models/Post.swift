@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 struct Post: Identifiable {
-    var id: String = UUID().uuidString
+    var id: String
     var userId: String
     var nickName: String
     

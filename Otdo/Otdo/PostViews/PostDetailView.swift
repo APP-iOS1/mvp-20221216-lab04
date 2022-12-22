@@ -17,7 +17,7 @@ struct PostDetailView: View {
     @State private var showingMenu: Bool = false
     @State private var showingEdit: Bool = false
     @State private var inputComment: String = ""
-    @State var post: Post
+    let post: Post
     
     var index: Int
     var trimComment: String {
@@ -85,9 +85,11 @@ struct PostDetailView: View {
                     
                     VStack {
                         ForEach(commentStore.comments) { comment in
-                            CommentView(post: $post, index: index, comment: comment)
-                                .padding(.vertical, 5)
-                            Divider()
+                            if comment.postId == post.id {
+                                CommentView(post: post, index: index, comment: comment)
+                                    .padding(.vertical, 5)
+                                Divider()
+                            }
                         }
                     }
                     .padding(.top, 5)
@@ -100,7 +102,7 @@ struct PostDetailView: View {
                     .textFieldStyle(.roundedBorder)
                 Button(action: {
                     let createdAt = Date().timeIntervalSince1970
-                    let newComment: Comment = Comment(userId: userInfoStore.currentUser?.uid ?? "", content: inputComment, createdAt: createdAt)
+                    let newComment: Comment = Comment(id: UUID().uuidString, userId: userInfoStore.currentUser?.uid ?? "", postId: post.id, content: inputComment, createdAt: createdAt)
                     commentStore.comments.append(newComment)
                     commentStore.addComment(post, newComment)
                     commentStore.fetchComments(post)
@@ -113,7 +115,9 @@ struct PostDetailView: View {
                 .disabled(trimComment.count > 0 ? false : true)
             }
         }
-        
+        .onAppear {
+            commentStore.fetchComments(post)
+        }
         .sheet(isPresented: $showingMenu, content: {
 //            List {
                     Button {
@@ -145,7 +149,7 @@ struct PostDetailView: View {
             .presentationDetents([.height(150)])
         })
         .fullScreenCover(isPresented: $showingEdit) {
-            PostEditView(content: post.content, post: $post)
+            PostEditView(content: post.content, post: post)
         }
     }
 }
@@ -156,7 +160,7 @@ struct CommentView: View {
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var commentStore: CommentStore
     
-    @Binding var post: Post
+    var post: Post
     var index: Int
     var comment: Comment
     

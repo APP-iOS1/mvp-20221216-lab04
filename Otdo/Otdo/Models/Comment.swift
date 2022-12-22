@@ -8,10 +8,10 @@
 import Foundation
 
 struct Comment: Identifiable, Hashable {
-    var id: String = UUID().uuidString
+    var id: String
 //    var postId: String
     var userId: String
-    
+    var postId: String
     var content: String
     var createdAt: Double
     

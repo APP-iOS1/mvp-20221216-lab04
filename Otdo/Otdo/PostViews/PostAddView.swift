@@ -71,9 +71,10 @@ struct PostAddView: View {
                 print(userInfoStore.users.count)
                 for user in userInfoStore.users {
                     if user.id == userInfoStore.currentUser?.uid {
+                        let id: String = UUID().uuidString
                         let createdAt = Date().timeIntervalSince1970
                         let imageName: String = UUID().uuidString
-                        let post: Post = Post(userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: imageName, likes: [:], temperature: 2.0, createdAt: createdAt)
+                        let post: Post = Post(id: id, userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: imageName, likes: [:], temperature: 2.0, createdAt: createdAt)
                         postStore.uploadImage(image: selectedImageData, postImage: imageName)
                         postStore.addPost(post)
 //                        for post in postStore.posts {

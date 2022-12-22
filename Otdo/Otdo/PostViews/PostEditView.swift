@@ -16,7 +16,7 @@ struct PostEditView: View {
     @State var content: String
     @State private var location: String = ""
     
-    @Binding var post: Post
+    var post: Post
     
     var body: some View {
         VStack {
