@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 struct Post: Identifiable {
-    var id: String
+    var id: String = UUID().uuidString
     var userId: String
     var nickName: String
     
@@ -19,7 +19,6 @@ struct Post: Identifiable {
 //  var bookmark: Bool
     
     var createdAt: Double
-    var postImage: UIImage?
     var createdDate: String {
         let dateFormatter = DateFormatter()
     

@@ -76,18 +76,20 @@ struct OOTDView: View {
         }
         .refreshable {
             postStore.fetchPost()
+            for post in postStore.posts {
+                postStore.retrievePhotos(post)
+            }
             lowTemp = ""
             highTemp = ""
         }
         .onAppear {
             postStore.fetchPost()
+            for post in postStore.posts {
+                postStore.retrievePhotos(post)
+            }
             print(postStore.posts)
         
             print("=======================")
-        }
-        .refreshable {
-            postStore.fetchPost()
-
         }
     }
 }

@@ -14,15 +14,15 @@ struct OOTDPostView: View {
     
     var body: some View {
         VStack{
-            
-            AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
-                image
-                    .resizable()
-                    .frame(width: 170, height: 250)
-                    .aspectRatio(contentMode: .fill)
-                    .cornerRadius(15)
-            }placeholder: {
-                ProgressView()
+            ForEach(postStore.images, id: \.self) { postImage in
+                if postImage.id == post.image {
+                    
+                    Image(uiImage: postImage.image)
+                        .resizable()
+                        .frame(width: 170, height: 250)
+                        .aspectRatio(contentMode: .fill)
+                        .cornerRadius(15)
+                }
             }
             .overlay(
                 HStack{

@@ -42,13 +42,14 @@ struct PostDetailView: View {
                     }
                 }
                 .padding()
-                AsyncImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/otdo-7cd2d.appspot.com/o/images%2F\(post.id)%2F\(post.image)?alt=media")) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit) 
-                        .frame(width: 350, height: 350)
-                }placeholder: {
-                    ProgressView()
+                ForEach(postStore.images, id: \.self) { postImage in
+                    if postImage.id == post.image {
+                        
+                        Image(uiImage: postImage.image)
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .aspectRatio(contentMode: .fit)
+                    }
                 }
                 HStack {
                     Image(systemName: "heart.fill")

@@ -20,6 +20,7 @@ struct PostAddView: View {
     
     @State private var selectedImage: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
+
     var body: some View {
         VStack {
             PhotosPicker(
@@ -71,13 +72,15 @@ struct PostAddView: View {
                 for user in userInfoStore.users {
                     if user.id == userInfoStore.currentUser?.uid {
                         let createdAt = Date().timeIntervalSince1970
-                        
-                        let postId: String = UUID().uuidString
                         let imageName: String = UUID().uuidString
-                        let imagePath: String = postId + "/" + imageName
-                        
-                        postStore.uploadImage(image: selectedImageData, name: imagePath)
-                        postStore.addPost(newPost: Post(id: postId, userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: imageName, likes: [:], temperature: 2.0, createdAt: createdAt))
+                        let post: Post = Post(userId: userInfoStore.currentUser?.uid ?? "", nickName: user.nickName, content: content, image: imageName, likes: [:], temperature: 2.0, createdAt: createdAt)
+                        postStore.uploadImage(image: selectedImageData, postImage: imageName)
+                        postStore.addPost(post)
+//                        for post in postStore.posts {
+//                            postStore.retrievePhotos(post)
+//                        }
+//                        postStore.fetchPost()
+
                     }
                 }
                 isShowingAdd.toggle()

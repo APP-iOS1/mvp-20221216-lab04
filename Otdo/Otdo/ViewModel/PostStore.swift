@@ -25,12 +25,17 @@ import UIKit
  
  
  */
+struct PostImage: Hashable {
+    var id: String
+    var image: UIImage
+}
 
 class PostStore : ObservableObject {
     @Published var posts : [Post] = []
-    let database = Firestore.firestore()
-    
-    private var storage = Storage.storage()
+    @Published var images: [PostImage] = []
+
+    private let database = Firestore.firestore()
+    private let storage = Storage.storage()
     
     
     
@@ -96,30 +101,28 @@ class PostStore : ObservableObject {
             }
     }
     
-    func addPost(newPost: Post) {
+    func addPost(_ post: Post) {
         Task {
             do {
                 
                 let _ = try await database.collection("Posts")
-                    .document("\(newPost.id)")
-                    .setData(["id": newPost.id,
-                              "userId": newPost.userId,
-                              "nickName": newPost.nickName,
-                              "content": newPost.content,
-                              "image": newPost.image, //이미지이름
-                              "likes": newPost.likes,
-                              "temperature": newPost.temperature,
-                              "createdAt": newPost.createdAt,
-                              "createdDate": newPost.createdDate
+                    .document(post.id)
+                    .setData(["id": post.id,
+                              "userId": post.userId,
+                              "nickName": post.nickName,
+                              "content": post.content,
+                              "image": post.image, //이미지이름
+                              "likes": post.likes,
+                              "temperature": post.temperature,
+                              "createdAt": post.createdAt,
+                              "createdDate": post.createdDate
                              ])
             } catch {
                 await MainActor.run(body: {
                     print("\(error.localizedDescription)")
                 })
             }
-        }
-        fetchPost()
-    
+        }    
     }
     
     func removePost(_ post:Post) {
@@ -132,7 +135,7 @@ class PostStore : ObservableObject {
             }
         }
         
-        let imagesRef = storage.reference().child("images/\(post.id)")
+        let imagesRef = storage.reference().child("images/\(post.image)")
         imagesRef.delete { error in
             if let error = error {
                 print("Error removing image from storage: \(error.localizedDescription)")
@@ -161,8 +164,8 @@ class PostStore : ObservableObject {
     }
     
     // 사진 업로드
-    func uploadImage(image: Data?, name: String) {
-        let storageRef = storage.reference().child("images/\(name)") //images/postId/imageName
+    func uploadImage(image: Data?, postImage: String) {
+        let storageRef = storage.reference().child("images/\(postImage)") //images/postId/imageName
         let data = image
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpg"
@@ -178,16 +181,30 @@ class PostStore : ObservableObject {
             }
         }
     }
-    
-//    // 사진 불러오기
-//    func fetchImage(postId: String, imageName: String){
-//        let ref = storage.reference().child("images/\(postId)/\(imageName)")
-//
-//
-//
-//                // posts배열 중에 postId가 동일한 postImage라는 항목에 Image를 할당해준다.
-//
-//            }
+    //사진 불러오기
+    func retrievePhotos(_ post: Post) {
+
+        database.collection("Posts").getDocuments { snapshot, error in
+            self.images.removeAll()
+            if error == nil && snapshot != nil {
+                
+                let imageName: String = post.image
+                
+                let storageRef = Storage.storage().reference()
+                let fileRef = storageRef.child("images/\(imageName)")
+                
+                fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    
+                    if error == nil && data != nil {
+                        let uiImage = UIImage(data: data!)!
+                        
+                        self.images.append(PostImage(id: imageName, image: uiImage))
+                        
+                    }
+                }
+            }
+        }
+    }
 
 }
 
