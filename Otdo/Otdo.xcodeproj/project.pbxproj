@@ -24,6 +24,8 @@
 		7F674ACB29503C1A0011E71D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674ACA29503C1A0011E71D /* MyPageView.swift */; };
 		7FDBE1C629514FD5008D607D /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE1C529514FD5008D607D /* WeatherStore.swift */; };
 		7FDBE1C829514FE1008D607D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE1C729514FE1008D607D /* WebService.swift */; };
+		9262188B29544DF300CAF24D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9262188A29544DF300CAF24D /* GoogleSignIn */; };
+		9262188D29544DF300CAF24D /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9262188C29544DF300CAF24D /* GoogleSignInSwift */; };
 		9296933D29528BDB00F92D86 /* HourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9296933C29528BDB00F92D86 /* HourlyWeather.swift */; };
 		92AEEDD529515F7D00265C1E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AEEDD429515F7D00265C1E /* LocationManager.swift */; };
 		92F4C97829514CEC003E70D8 /* PostAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4C97629514CEC003E70D8 /* PostAddView.swift */; };
@@ -59,6 +61,7 @@
 		7F674ACA29503C1A0011E71D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		7FDBE1C529514FD5008D607D /* WeatherStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStore.swift; sourceTree = "<group>"; };
 		7FDBE1C729514FE1008D607D /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		9262188629544B3500CAF24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9296933C29528BDB00F92D86 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
 		92AEEDD429515F7D00265C1E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		92F4C97629514CEC003E70D8 /* PostAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAddView.swift; sourceTree = "<group>"; };
@@ -84,8 +87,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9262188B29544DF300CAF24D /* GoogleSignIn in Frameworks */,
 				7F674AB329501ED50011E71D /* FirebaseAuth in Frameworks */,
 				7F674AB929501ED50011E71D /* FirebaseStorage in Frameworks */,
+				9262188D29544DF300CAF24D /* GoogleSignInSwift in Frameworks */,
 				7F674AB529501ED50011E71D /* FirebaseFirestore in Frameworks */,
 				7F674AB729501ED50011E71D /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -113,6 +118,7 @@
 		7F674AA229501DC90011E71D /* Otdo */ = {
 			isa = PBXGroup;
 			children = (
+				9262188629544B3500CAF24D /* Info.plist */,
 				7F674ABA29501F8D0011E71D /* GoogleService-Info.plist */,
 				7F674AA329501DC90011E71D /* OtdoApp.swift */,
 				AD3EF33F29503DBE00837A81 /* ViewRouter.swift */,
@@ -242,6 +248,8 @@
 				7F674AB429501ED50011E71D /* FirebaseFirestore */,
 				7F674AB629501ED50011E71D /* FirebaseFirestoreSwift */,
 				7F674AB829501ED50011E71D /* FirebaseStorage */,
+				9262188A29544DF300CAF24D /* GoogleSignIn */,
+				9262188C29544DF300CAF24D /* GoogleSignInSwift */,
 			);
 			productName = Otdo;
 			productReference = 7F674AA029501DC90011E71D /* Otdo.app */;
@@ -273,6 +281,7 @@
 			mainGroup = 7F674A9729501DC90011E71D;
 			packageReferences = (
 				7F674AB129501ED50011E71D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9262188929544DF300CAF24D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 7F674AA129501DC90011E71D /* Products */;
 			projectDirPath = "";
@@ -459,6 +468,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Otdo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Otdo/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MapChat needs your location to show you other users";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -489,6 +499,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Otdo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Otdo/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MapChat needs your location to show you other users";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -541,6 +552,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		9262188929544DF300CAF24D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -563,6 +582,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7F674AB129501ED50011E71D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		9262188A29544DF300CAF24D /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9262188929544DF300CAF24D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		9262188C29544DF300CAF24D /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9262188929544DF300CAF24D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -80,9 +80,11 @@ struct MyPageView: View {
                 }
             }
             .toolbar{
+             
                 Menu {
                     Button {
                         userInfoStore.logout()
+                        userInfoStore.googleSignOut()
                         viewRouter.currentPage = .loginView
                     } label: {
                         Text("Logout")

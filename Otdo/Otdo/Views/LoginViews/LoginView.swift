@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 struct LoginView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userInfoStore: UserInfoStore
     @State private var email: String = ""
     @State private var password: String = ""
-    
     @State private var secureField: Bool = true
+    private let user = GIDSignIn.sharedInstance.currentUser
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -84,6 +87,11 @@ struct LoginView: View {
                     .padding(.vertical)
                     
                     Button(action: {
+                        userInfoStore.googleSignIn()
+                        
+                        if userInfoStore.currentUser != nil {
+                            viewRouter.currentPage = .mainView
+                        }
                         
                     }){
                         Text("구글 로그인")
@@ -111,6 +119,7 @@ struct LoginView: View {
             .padding()
         }
     }
+    
 }
 
 struct TextFieldModifier: ViewModifier {
