@@ -39,11 +39,12 @@ struct MyPageView: View {
                     Spacer()
                 }
                 
+                
                 NavigationLink(destination: Text("프로필 편집 화면")){
                     Text("프로필 편집")
                         .foregroundColor(.gray)
                         .fontWeight(.heavy)
-                        .frame(width: 330, height: 45)
+                        .frame(width: 360, height: 45)
                         .background {
                             RoundedRectangle(cornerRadius: 17, style: .continuous)
                                 .stroke(.gray, lineWidth: 2)
@@ -51,7 +52,8 @@ struct MyPageView: View {
                 }
                 
                 Divider()
-                    .padding()
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 10)
                 Picker("게시물 선택", selection: $segmentationSelection){
                     ForEach(PostSection.allCases, id:\.self) { option in
                         Text(option.rawValue)
@@ -59,6 +61,7 @@ struct MyPageView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.bottom, 10)
+                
                 ScrollView {
                     LazyVGrid(
                         columns: columns,
@@ -77,11 +80,17 @@ struct MyPageView: View {
                 }
             }
             .toolbar{
-                Button(action: {
-                    userInfoStore.logout()
-                    viewRouter.currentPage = .loginView
-                }){
-                    Text("Logout")
+                Menu {
+                    Button {
+                        userInfoStore.logout()
+                        viewRouter.currentPage = .loginView
+                    } label: {
+                        Text("Logout")
+                    }
+
+                } label: {
+                    Image(systemName: "gear")
+                        .foregroundColor(.black)
                 }
             }
             .padding()
