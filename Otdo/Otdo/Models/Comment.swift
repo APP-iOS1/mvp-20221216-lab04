@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Comment {
+struct Comment: Identifiable, Hashable {
     var id: String
-    var postId: String
+//    var postId: String
     var userId: String
-    
+    var postId: String
     var content: String
     var createdAt: Double
     

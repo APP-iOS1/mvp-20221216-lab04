@@ -39,15 +39,12 @@ class PostStore : ObservableObject {
     
     
     
-    func fetchPostByTemperature(lowTemperature: String, highTemperature: String) {
-        let lowTemp: Double = Double(lowTemperature) ?? -20.0
-        let highTemp: Double = Double(highTemperature) ?? 50.0
-        
+    func fetchPostByTemperature(lowTemperature: Double, highTemperature: Double) {
         print("fetchByTemperature!")
         
         database.collection("Posts")
-            .whereField("temperature", isGreaterThanOrEqualTo: lowTemp)
-            .whereField("temperature", isLessThanOrEqualTo: highTemp )
+            .whereField("temperature", isGreaterThanOrEqualTo: lowTemperature)
+            .whereField("temperature", isLessThanOrEqualTo: highTemperature )
 //            .order(by: "createdDate", descending: true)
         // FIXME: - 파베에서 복합쿼리를 사용할 때 복합색인을 추가해주어야 함
         // 지금은 이해 못 해서 날짜 정렬 잠시 포기하고 temperature 필드값만 확인해줌T^T
@@ -108,7 +105,7 @@ class PostStore : ObservableObject {
                 let _ = try await database.collection("Posts")
                     .document(post.id)
                     .setData(["id": post.id,
-                              "userId": post.userId,
+                              "userId": Auth.auth().currentUser?.uid ?? "",
                               "nickName": post.nickName,
                               "content": post.content,
                               "image": post.image, //이미지이름
@@ -135,13 +132,18 @@ class PostStore : ObservableObject {
             }
         }
         
+        removeImage(post)
+        
+        fetchPost()
+    }
+    
+    func removeImage(_ post: Post) {
         let imagesRef = storage.reference().child("images/\(post.image)")
         imagesRef.delete { error in
             if let error = error {
                 print("Error removing image from storage: \(error.localizedDescription)")
             }
         }
-        fetchPost()
     }
     
     func updatePost(_ post: Post) {
