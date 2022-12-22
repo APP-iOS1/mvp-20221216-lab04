@@ -28,6 +28,18 @@ struct PostDetailView: View {
         VStack{
             ScrollView(showsIndicators: false) {
                 VStack {
+                    HStack {
+                        Spacer()
+                        if post.userId == Auth.auth().currentUser?.uid {
+                            Button {
+                                showingMenu.toggle()
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .rotationEffect(.init(degrees: 90))
+                            }
+                        }
+                    }
+                    .padding()
                     ForEach(postStore.images, id: \.self) { postImage in
                         if postImage.id == post.image {
                             
