@@ -11,121 +11,113 @@ import FirebaseAuth
 struct PostDetailView: View {
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
+    @EnvironmentObject var commentStore: CommentStore
     @Environment(\.dismiss) private var dismiss
-
     
     @State private var showingMenu: Bool = false
     @State private var showingEdit: Bool = false
-    
+    @State private var inputComment: String = ""
     @State var post: Post
     
     var index: Int
+    var trimComment: String {
+        inputComment.trimmingCharacters(in: .whitespaces)
+    }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                HStack {
-                    if !postStore.posts.isEmpty {
-                    
-                        Text("\(postStore.posts[index].nickName)")
-                            .bold()
-                        
-                    }
-                    Spacer()
-                    if post.userId == Auth.auth().currentUser?.uid {
-                        Button {
-                            showingMenu.toggle()
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .rotationEffect(.init(degrees: 90))
-                        }
-                    }
-                }
-                .padding()
-                ForEach(postStore.images, id: \.self) { postImage in
-                    if postImage.id == post.image {
-                        
-                        Image(uiImage: postImage.image)
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                            .aspectRatio(contentMode: .fit)
-                    }
-                }
-                HStack {
-                    Image(systemName: "heart.fill")
-                        .padding(.leading)
-                        .padding(.trailing, -5)
-                    Text("1324")
-                        .padding(.trailing, -5)
-                    Image(systemName: "message")
-                        .padding(.trailing, -5)
-                    Text("26")
-                    Spacer()
-                    Text("서울시 중랑구")
-                        .padding(.trailing)
-                        .foregroundColor(.gray)
-                }
-                HStack {
-                    VStack(alignment: .leading) {
+        VStack{
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    HStack {
                         if !postStore.posts.isEmpty {
                             
                             Text("\(postStore.posts[index].nickName)")
-                                .font(.title)
                                 .bold()
-                                .padding(.leading)
-                                .padding(.vertical, -1)
-                            Text(postStore.posts[index].content)
-                                .padding(.leading)
+                            
+                        }
+                        Spacer()
+                        if post.userId == Auth.auth().currentUser?.uid {
+                            Button {
+                                showingMenu.toggle()
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .rotationEffect(.init(degrees: 90))
+                            }
                         }
                     }
-                    Spacer()
+                    .padding()
+                    ForEach(postStore.images, id: \.self) { postImage in
+                        if postImage.id == post.image {
+                            
+                            Image(uiImage: postImage.image)
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                                .aspectRatio(contentMode: .fit)
+                        }
+                    }
+                    HStack {
+                        Image(systemName: "heart.fill")
+                            .padding(.leading)
+                            .padding(.trailing, -5)
+                        Text("1324")
+                            .padding(.trailing, -5)
+                        Image(systemName: "message")
+                            .padding(.trailing, -5)
+                        Text("26")
+                        Spacer()
+                        Text("서울시 중랑구")
+                            .padding(.trailing)
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        VStack(alignment: .leading) {
+                            if !postStore.posts.isEmpty {
+                                
+                                Text("\(postStore.posts[index].nickName)")
+                                    .font(.title)
+                                    .bold()
+                                    .padding(.leading)
+                                    .padding(.vertical, -1)
+                                Text(postStore.posts[index].content)
+                                    .padding(.leading)
+                            }
+                        }
+                        Spacer()
+                    }
+                    
+                    Divider()
+                    
+                    VStack {
+                        ForEach(commentStore.comments) { comment in
+                            CommentView(post: $post, comment: comment)
+                                .padding(.vertical, 5)
+                            Divider()
+                        }
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 10)
+                    
                 }
-                
-                Divider()
-                
-                VStack {
-                    HStack {
-                        Circle()
-                            .frame(width: 44)
-                        VStack(alignment: .leading) {
-                            Text("민콩")
-                            Text("이뿌댜앙")
-                        }
-                        Spacer()
-                        Text("2분전")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.horizontal)
-                    HStack {
-                        Circle()
-                            .frame(width: 44)
-                        VStack(alignment: .leading) {
-                            Text("민콩")
-                            Text("이뿌댜앙")
-                        }
-                        Spacer()
-                        Text("2분전")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.horizontal)
-                    HStack {
-                        Circle()
-                            .frame(width: 44)
-                        VStack(alignment: .leading) {
-                            Text("민콩")
-                            Text("이뿌댜앙")
-                        }
-                        Spacer()
-                        Text("2분전")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.top, 5)
-                .padding(.bottom, 10)
+            }
+            HStack {
+                TextField("댓글을 입력하세요", text: $inputComment)
+                    .textFieldStyle(.roundedBorder)
+                Button(action: {
+                    let createdAt = Date().timeIntervalSince1970
+                    let newComment: Comment = Comment(userId: userInfoStore.currentUser?.uid ?? "", content: inputComment, createdAt: createdAt)
+                    commentStore.comments.append(newComment)
+                    commentStore.addComment(post, newComment)
+                    commentStore.fetchComments(post)
+                    inputComment = ""
+                    print("\(commentStore.comments)")
+                }, label: {
+                    Image(systemName: "arrow.up.circle")
+                        .font(.title)
+                })
+                .disabled(trimComment.count > 0 ? false : true)
             }
         }
-
+        
         .sheet(isPresented: $showingMenu, content: {
 //            List {
                     Button {
@@ -162,6 +154,47 @@ struct PostDetailView: View {
     }
 }
 
+
+struct CommentView: View {
+    @State private var isPresentingConfirm: Bool = false
+    @EnvironmentObject var commentStore: CommentStore
+    
+    @Binding var post: Post
+    
+    var comment: Comment
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    Text(comment.userId)
+                        .fontWeight(.black)
+                    Spacer()
+                    if comment.userId == Auth.auth().currentUser?.uid {
+                        Button(action: {
+                            isPresentingConfirm = true
+                        }, label: {
+                            Image(systemName: "trash")
+                                .foregroundColor(.gray)
+                        })
+                        .confirmationDialog("댓글을 삭제하시겠습니까?",
+                                            isPresented: $isPresentingConfirm) {
+                            Button("삭제", role: .destructive) {
+                                commentStore.deleteComment(post, comment)
+                                commentStore.fetchComments(post)
+                            }
+                        }
+                    }
+                }
+                Text(comment.content)
+                Text(comment.createdDate)
+                    .font(.callout)
+                    .foregroundColor(.gray)
+            }
+            Spacer()
+        }
+    }
+}
 //struct PostDetailView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        PostDetailView()

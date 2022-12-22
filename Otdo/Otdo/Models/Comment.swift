@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Comment {
-    var id: String
-    var postId: String
+struct Comment: Identifiable, Hashable {
+    var id: String = UUID().uuidString
+//    var postId: String
     var userId: String
     
     var content: String
