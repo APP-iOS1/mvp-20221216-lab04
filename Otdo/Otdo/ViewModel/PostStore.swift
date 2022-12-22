@@ -9,14 +9,35 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
+import UIKit
+
+/*
+ 우리가 해야할것
+ [넣을때]
+ 1. 앱의 이미지를 선택해서, 선택한 이미지를 스토리지와 파이어 스토어에 넣는다.!
+ - 파이어 스토어에는 이미지 - 이미지 이름을 넣고
+ - 스토리지에는 이미지 이름의 사진데이터를 넣는다.
+ 
+ [꺼내올때]
+ 2. 포스트 이미지를 어싱크 이미지로 해서 이미지를 뿌려준다.
+ 
+ 
+ 
+ */
+struct PostImage: Hashable {
+    var id: String
+    var image: UIImage
+}
 
 class PostStore : ObservableObject {
     @Published var posts : [Post] = []
-    let database = Firestore.firestore()
+    @Published var images: [PostImage] = []
+
+    private let database = Firestore.firestore()
+    private let storage = Storage.storage()
     
-    init(){
-        posts = []
-    }
+    
     
     func fetchPostByTemperature(lowTemperature: Double, highTemperature: Double) {
         print("fetchByTemperature!")
@@ -52,7 +73,7 @@ class PostStore : ObservableObject {
     
     func fetchPost() {
         print("fetch!")
-        database.collection("TestPosts")
+        database.collection("Posts")
             .order(by: "createdDate", descending: true)
             .getDocuments{ (snapshot, error ) in
                 self.posts.removeAll()
@@ -67,36 +88,38 @@ class PostStore : ObservableObject {
                         let likes = document["likes"] as? [String:Bool] ?? [:]
                         let temperature = document["temperature"] as? Double ?? 0.0
                         let createdAt = document["createdAt"] as? Double ?? 0.0
-                        
+                        // let postImage = document["postImage"] as? UIImage ?? nil
+            
                         self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
+                        
                     }
-                    print(self.posts)
+//                    print(self.posts)
                 }
             }
     }
     
-    func addPost(newPost: Post) {
+    func addPost(_ post: Post) {
         Task {
             do {
-                let _ = try await database.collection("TestPosts")
-                    .document("\(newPost.id)")
-                    .setData(["id": newPost.id,
-                              "userId": newPost.userId,
-                              "nickName": newPost.nickName,
-                              "content": newPost.content,
-                              "image": newPost.image,
-                              "likes": newPost.likes,
-                              "temperature": newPost.temperature,
-                              "createdAt": newPost.createdAt,
-                              "createdDate": newPost.createdDate
+                
+                let _ = try await database.collection("Posts")
+                    .document(post.id)
+                    .setData(["id": post.id,
+                              "userId": Auth.auth().currentUser?.uid ?? "",
+                              "nickName": post.nickName,
+                              "content": post.content,
+                              "image": post.image, //이미지이름
+                              "likes": post.likes,
+                              "temperature": post.temperature,
+                              "createdAt": post.createdAt,
+                              "createdDate": post.createdDate
                              ])
             } catch {
                 await MainActor.run(body: {
                     print("\(error.localizedDescription)")
                 })
             }
-        }
-        fetchPost()
+        }    
     }
     
     func removePost(_ post:Post) {
@@ -108,7 +131,19 @@ class PostStore : ObservableObject {
                 print("Document successfully removed!")
             }
         }
+        
+        removeImage(post)
+        
         fetchPost()
+    }
+    
+    func removeImage(_ post: Post) {
+        let imagesRef = storage.reference().child("images/\(post.image)")
+        imagesRef.delete { error in
+            if let error = error {
+                print("Error removing image from storage: \(error.localizedDescription)")
+            }
+        }
     }
     
     func updatePost(_ post: Post) {
@@ -130,6 +165,49 @@ class PostStore : ObservableObject {
         fetchPost()
     }
     
+    // 사진 업로드
+    func uploadImage(image: Data?, postImage: String) {
+        let storageRef = storage.reference().child("images/\(postImage)") //images/postId/imageName
+        let data = image
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        if let data = data{
+            storageRef.putData(data, metadata: metadata) {(metadata, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                if let metadata = metadata {
+                    print("metadata: \(metadata)")
+                }
+            }
+        }
+    }
+    //사진 불러오기
+    func retrievePhotos(_ post: Post) {
+
+        database.collection("Posts").getDocuments { snapshot, error in
+            self.images.removeAll()
+            if error == nil && snapshot != nil {
+                
+                let imageName: String = post.image
+                
+                let storageRef = Storage.storage().reference()
+                let fileRef = storageRef.child("images/\(imageName)")
+                
+                fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    
+                    if error == nil && data != nil {
+                        let uiImage = UIImage(data: data!)!
+                        
+                        self.images.append(PostImage(id: imageName, image: uiImage))
+                        
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 

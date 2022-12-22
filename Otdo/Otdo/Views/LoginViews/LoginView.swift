@@ -30,6 +30,7 @@ struct LoginView: View {
                 TextField(" 이메일을 입력해주세요", text: $email)
                     .modifier(TextFieldModifier())
                     .padding(.vertical, 5)
+                    .autocapitalization(.none)
                 
                 HStack{
                     if secureField {

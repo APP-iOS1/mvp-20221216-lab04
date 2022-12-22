@@ -17,6 +17,7 @@ struct OOTDView: View {
     ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
+
     
     var body: some View {
         NavigationStack{
@@ -45,9 +46,10 @@ struct OOTDView: View {
                         content:  {
                             ForEach(Array(postStore.posts.enumerated()), id: \.offset) { (index, post) in
                                 NavigationLink(destination: PostDetailView(post: post, index: index)) {
+                                    
                                     OOTDPostView(post: post)
                                 }
-                                .foregroundColor(.black)
+                                .foregroundColor(.black).environmentObject(postStore).environmentObject(userInfoStore)
                             }
                         }
                     )
@@ -76,6 +78,12 @@ struct OOTDView: View {
         }
         .onAppear {
             postStore.fetchPost()
+            for post in postStore.posts {
+                postStore.retrievePhotos(post)
+            }
+//            print(postStore.posts)
+        
+            print("=======================")
         }
     }
 }

@@ -8,26 +8,35 @@
 import SwiftUI
 
 struct OOTDPostView: View {
+    @EnvironmentObject var postStore: PostStore
     let post: Post
+    //    var index: Int
     
     var body: some View {
         VStack{
-                RoundedRectangle(cornerRadius: 10)
-                .fill(Color.gray)
-                .frame(width:160, height: 250)
-                .overlay(
-                    HStack{
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 18    ,height: 18)
-                        Text(post.nickName)
-                            .font(.system(size: 14))
-                        Spacer()
-                        Text("\(Int(post.temperature))℃")
-                    }
-                        .padding(10)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                )
+            ForEach(postStore.images, id: \.self) { postImage in
+                if postImage.id == post.image {
+                    
+                    Image(uiImage: postImage.image)
+                        .resizable()
+                        .frame(width: 170, height: 250)
+                        .aspectRatio(contentMode: .fill)
+                        .cornerRadius(15)
+                }
+            }
+            .overlay(
+                HStack{
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 18    ,height: 18)
+                    Text(post.nickName)
+                        .font(.system(size: 14))
+                    Spacer()
+                    Text("\(Int(post.temperature))℃")
+                }
+                    .padding(10)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+            )
             
             Text(post.content)
                 .frame(width: 160, height: 30)
@@ -53,6 +62,10 @@ struct OOTDPostView: View {
             .font(.system(size: 12))
             .padding(.bottom)
         }
+//        .onAppear {
+//            postStore.fetchPost()
+//           
+//        }
     }
 }
 

@@ -7,19 +7,19 @@
 
 import Foundation
 // MARK: -- Weather
-struct Weather: Codable, Identifiable {
+struct CurrentWeather: Codable, Identifiable {
     var name: String?
     var id: Int?
     var coord: Coordinates?
     var weather: [Conditions]?
     var main: Main?
     var visibility: Int?
-    var wind: Wind?
-    var rain: Rain?
-    var snow: Snow?
-    var clouds: Cloud?
+    var wind: CurrentWind?
+    var rain: CurrentRain?
+    var snow: CurrentSnow?
+    var clouds: CurrentCloud?
     var dt: Int?
-    var sys: Sys?
+    var sys: CurrentSys?
     var timezone: Int?
 }
 
@@ -38,7 +38,7 @@ struct Conditions: Codable, Identifiable {
 }
 
 // MARK: -- Main
-struct Main: Codable {
+struct Main: Codable, Hashable {
     var temp: Float?
     var feels_like: Float?
     var temp_min: Float?
@@ -50,14 +50,14 @@ struct Main: Codable {
 }
 
 // MARK: -- Wind
-struct Wind: Codable {
+struct CurrentWind: Codable {
     var speed: Float?
     var deg: Float?
     var gust: Float?
 }
 
 // MARK: -- Rain
-struct Rain: Codable {
+struct CurrentRain: Codable {
     var lastHour: Float?
     var last3Hours: Float?
     
@@ -68,7 +68,7 @@ struct Rain: Codable {
 }
 
 // MARK: -- Snow
-struct Snow: Codable {
+struct CurrentSnow: Codable {
     var lastHour: Float?
     var last3Hours: Float?
     
@@ -79,7 +79,7 @@ struct Snow: Codable {
 }
 
 // MARK: -- Cloud
-struct Cloud: Codable {
+struct CurrentCloud: Codable {
     var percentage: Int?
     
     private enum CodingKeys: String, CodingKey {
@@ -88,7 +88,7 @@ struct Cloud: Codable {
 }
 
 // MARK: -- Sys
-struct Sys: Codable {
+struct CurrentSys: Codable {
     var country: String?
     var sunrise: Int?
     var sunset: Int?
@@ -120,7 +120,7 @@ struct Sys: Codable {
 
 /*
  경도
- https://api.openweathermap.org/data/2.5/weather?lat=37.5683&lon=126.9778&appid=3f9b06947acddcef370b23a5aaaae195
+ "https://api.openweathermap.org/data/2.5/weather?qlat=37.54815556&lon=126.851675&appid=3f9b06947acddcef370b23a5aaaae195"
  지역
  https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=3f9b06947acddcef370b23a5aaaae195
  */

@@ -8,10 +8,17 @@
 import Foundation
 
 class WebService {
-    func fetchData(url: String) async throws -> Weather? {
+    func currentWeatherfetchData(url: String) async throws -> CurrentWeather? {
         guard let url = URL(string: url) else { return nil }
         let (data, _) = try await URLSession.shared.data(from: url)
-        let result = try JSONDecoder().decode(Weather.self, from: data)
+        let result = try JSONDecoder().decode(CurrentWeather.self, from: data)
+        return result
+    }
+    
+    func hourlyWeatherfetchData(url: String) async throws -> HourlyWeather? {
+        guard let url = URL(string: url) else { return nil }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let result = try JSONDecoder().decode(HourlyWeather.self, from: data)
         return result
     }
 }

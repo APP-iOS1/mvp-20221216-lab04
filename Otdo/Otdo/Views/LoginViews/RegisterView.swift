@@ -37,6 +37,7 @@ struct RegisterView: View {
                     RoundedRectangle(cornerRadius: 5, style: .continuous)
                         .stroke(.gray, lineWidth: 1)
                 }
+                .autocapitalization(.none)
             
             SecureField("Password", text: $password)
                 .textContentType(.emailAddress)
