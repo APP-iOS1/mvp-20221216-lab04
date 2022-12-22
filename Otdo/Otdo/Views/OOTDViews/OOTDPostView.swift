@@ -62,10 +62,10 @@ struct OOTDPostView: View {
             .font(.system(size: 12))
             .padding(.bottom)
         }
-        .onAppear {
-            postStore.fetchPost()
-           
-        }
+//        .onAppear {
+//            postStore.fetchPost()
+//           
+//        }
     }
 }
 

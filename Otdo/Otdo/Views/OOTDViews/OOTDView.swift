@@ -87,7 +87,7 @@ struct OOTDView: View {
             for post in postStore.posts {
                 postStore.retrievePhotos(post)
             }
-            print(postStore.posts)
+//            print(postStore.posts)
         
             print("=======================")
         }

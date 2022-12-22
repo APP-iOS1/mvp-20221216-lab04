@@ -96,7 +96,7 @@ class PostStore : ObservableObject {
                         self.posts.append(Post(id: id, userId: userId, nickName: nickName, content: content, image: image, likes: likes, temperature: temperature, createdAt: createdAt))
                         
                     }
-                    print(self.posts)
+//                    print(self.posts)
                 }
             }
     }
