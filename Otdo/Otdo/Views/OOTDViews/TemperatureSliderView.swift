@@ -11,6 +11,9 @@ struct TemperatureSliderView: View {
     @EnvironmentObject var postStore: PostStore
     @ObservedObject var slider = CustomSlider(start: -30, end: 50)
     
+    @Binding var lowTemp: Double
+    @Binding var highTemp: Double
+    
     var body: some View {
         VStack{
             HStack{
@@ -18,7 +21,7 @@ struct TemperatureSliderView: View {
                     .font(.title3)
                     .bold()
                 Spacer()
-                Text("\(Int(slider.lowHandle.currentValue))℃ ~ \(Int(slider.highHandle.currentValue))℃")
+                Text("\(Int(lowTemp))℃ ~ \(Int(highTemp))℃")
                     .fontWeight(.semibold)
                     .foregroundColor(Color.gray)
             }
@@ -48,6 +51,12 @@ struct TemperatureSliderView: View {
             .background(.black)
             .cornerRadius(10)
             .padding(.leading, 10)
+        }
+        .onChange(of: slider.lowHandle.currentValue) { newValue in
+            lowTemp = slider.lowHandle.currentValue
+        }
+        .onChange(of: slider.highHandle.currentValue) { newValue in
+            highTemp = slider.highHandle.currentValue
         }
     }
 }

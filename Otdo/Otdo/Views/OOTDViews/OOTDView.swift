@@ -19,6 +19,8 @@ struct OOTDView: View {
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
 
+    @State private var lowTemp: Double = -30
+    @State private var highTemp: Double = 50
     
     var body: some View {
         NavigationStack{
@@ -36,7 +38,7 @@ struct OOTDView: View {
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
                 
-                TemperatureSliderView()
+                TemperatureSliderView(lowTemp: $lowTemp, highTemp: $highTemp)
                 
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
