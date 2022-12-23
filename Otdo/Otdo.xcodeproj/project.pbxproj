@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F25539329557C4400B223F9 /* PostGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F25539229557C4400B223F9 /* PostGridView.swift */; };
 		7F674AA429501DC90011E71D /* OtdoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674AA329501DC90011E71D /* OtdoApp.swift */; };
 		7F674AA629501DC90011E71D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F674AA529501DC90011E71D /* ContentView.swift */; };
 		7F674AA829501DCA0011E71D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F674AA729501DCA0011E71D /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F25539229557C4400B223F9 /* PostGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridView.swift; sourceTree = "<group>"; };
 		7F674AA029501DC90011E71D /* Otdo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Otdo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F674AA329501DC90011E71D /* OtdoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtdoApp.swift; sourceTree = "<group>"; };
 		7F674AA529501DC90011E71D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				7F674AC829503BBA0011E71D /* OOTDView.swift */,
+				7F25539229557C4400B223F9 /* PostGridView.swift */,
 				EAE1D9E2295190A300A3FCE3 /* OOTDPostView.swift */,
 				CA41ED122954BD7800CAFC1C /* TemperatureSliderView.swift */,
 				CA41ED102954BD2100CAFC1C /* Slider.swift */,
@@ -318,6 +321,7 @@
 				EADBF5B029509601004F890F /* RegisterView.swift in Sources */,
 				CA41ED112954BD2100CAFC1C /* Slider.swift in Sources */,
 				7F674AC929503BBA0011E71D /* OOTDView.swift in Sources */,
+				7F25539329557C4400B223F9 /* PostGridView.swift in Sources */,
 				7F674AA429501DC90011E71D /* OtdoApp.swift in Sources */,
 				7F674AC22950241B0011E71D /* UserInfo.swift in Sources */,
 				7FDBE1C829514FE1008D607D /* WebService.swift in Sources */,
