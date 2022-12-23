@@ -44,7 +44,7 @@ struct OOTDView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVGrid(
                         columns: columns,
-                        alignment: .center,
+                        alignment: .leading,
                         spacing: 5,
                         pinnedViews: [],
                         content:  {
@@ -75,7 +75,13 @@ struct OOTDView: View {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
         }
         .refreshable {
-            postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
+            if lowTemp != Double(-30) || highTemp != Double(50) {
+                // 온도 필터 변경 시에는 온도에 따라서 데이터를 패치함
+                postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)}
+            else{
+                // 데이터 기본 패치
+                postStore.fetchPost()
+            }
             for post in postStore.posts {
                 postStore.retrievePhotos(post)
             }

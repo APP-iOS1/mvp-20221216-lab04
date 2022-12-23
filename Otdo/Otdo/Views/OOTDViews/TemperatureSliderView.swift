@@ -41,16 +41,34 @@ struct TemperatureSliderView: View {
             }
             .offset(y: -5)
             .padding(.horizontal)
-            Button {
-                postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
-            } label: {
-                Text("설정")
-                    .foregroundColor(Color.white)
-                    .padding(10)
+            HStack{
+                Button {
+                    postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
+                } label: {
+                    Text("설정")
+                        .foregroundColor(Color.white)
+                        .padding(10)
+                }
+                .background(.black)
+                .cornerRadius(10)
+                .padding(.leading, 10)
+                Button {
+                    lowTemp = Double(-30)
+                    highTemp = Double(50)
+
+                    slider.highHandle = SliderHandle(sliderWidth: slider.width, sliderHeight: slider.lineWidth, sliderValueStart: slider.valueStart, sliderValueEnd: slider.valueEnd, startPercentage: SliderValue(wrappedValue: 1.0))
+                    slider.lowHandle = SliderHandle(sliderWidth: slider.width, sliderHeight: slider.lineWidth, sliderValueStart: slider.valueStart, sliderValueEnd: slider.valueEnd, startPercentage: SliderValue(wrappedValue: 0.0))
+                    postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
+                    
+                } label: {
+                    Text("초기화")
+                        .foregroundColor(Color.white)
+                        .padding(10)
+                }
+                .background(.black)
+                .cornerRadius(10)
+                .padding(.leading, 10)
             }
-            .background(.black)
-            .cornerRadius(10)
-            .padding(.leading, 10)
         }
         .onChange(of: slider.lowHandle.currentValue) { newValue in
             lowTemp = slider.lowHandle.currentValue
