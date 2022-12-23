@@ -12,7 +12,7 @@ struct DetailWeatherView: View {
     var webService: WebService = WebService()
     let url: String?
     let hourlyWeatherURl = "api.openweathermap.org/data/2.5/forecast?lat=37.54815556&lon=126.851675&appid=3f9b06947acddcef370b23a5aaaae195"
-    let weatherImage: [String: String] = ["clear": "sun.max.fill", "Clouds": "cloud.fill", "Snow": "snowflake", "Mist": "cloud.fog.fill"]
+    let weatherImage: [String: String] = ["clear": "sun.max.fill", "Clouds": "cloud.fill", "Snow": "snowflake", "Mist": "cloud.fog.fill", "Rain": "cloud.rain.fill"]
 
     let week = ["화", "수", "목", "금", "토", "일", "월"]
     var weatherImages = ["sun.max.fill", "cloud.sun.fill", "cloud.rain.fill", "sun.max.fill", "cloud.sun.fill", "sun.max.fill", "sun.max.fill"]
