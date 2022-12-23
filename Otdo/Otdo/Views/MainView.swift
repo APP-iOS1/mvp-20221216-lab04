@@ -40,6 +40,9 @@ struct MainView: View {
         .onAppear {
             postStore.fetchPost()
             userInfoStore.fetchUser()
+            for post in postStore.posts {
+                postStore.retrievePhotos(post)
+            }
         }
     }
 }

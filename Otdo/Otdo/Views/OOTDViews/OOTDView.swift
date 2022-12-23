@@ -10,6 +10,7 @@ import SwiftUI
 struct OOTDView: View {
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
+    @EnvironmentObject var slider: CustomSlider
     
     //    let columns: [GridItem] = [
     //        GridItem(.flexible(), spacing: 0, alignment: nil),
@@ -18,7 +19,10 @@ struct OOTDView: View {
     //    ]
     @State private var searchText: String = ""
     @State var isShowingAdd: Bool = false
-    
+
+    @State private var lowTemp: Double = -30
+    @State private var highTemp: Double = 50
+
     
     var body: some View {
         NavigationStack{
@@ -49,18 +53,12 @@ struct OOTDView: View {
                 .background(Color("SearchBar"))
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
+
                 //
-                TemperatureSliderView()
+                TemperatureSliderView(lowTemp: $lowTemp, highTemp: $highTemp)
                 
                 ScrollView(showsIndicators: false) {
-                    //                    ForEach(Array(postStore.posts)) { post in
-                    //                        if post.nickName == searchText {
-                    //                            SearchOOTDView(searchText: searchText, post: post).environment(postStore)
-                    //                        } else {
-                    //                            PostGridView()
-                    //                        }
-                    //
-                    //                    }
+                   
                     GeometryReader{ bound in
                         LazyVGrid(
                             columns: [GridItem(.adaptive(minimum: bound.size.width / 3 - 1.2), spacing: 1.2)],
@@ -73,7 +71,7 @@ struct OOTDView: View {
                                         OOTDPostView(post: post)
                                     }
                                     .foregroundColor(.black).environmentObject(postStore).environmentObject(userInfoStore)
-                                }
+
                             }
                         )
                     }
@@ -95,7 +93,13 @@ struct OOTDView: View {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
         }
         .refreshable {
-            postStore.fetchPost()
+            if lowTemp != Double(-30) || highTemp != Double(50) {
+                // 온도 필터 변경 시에는 온도에 따라서 데이터를 패치함
+                postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)}
+            else{
+                // 데이터 기본 패치
+                postStore.fetchPost()
+            }
             for post in postStore.posts {
                 postStore.retrievePhotos(post)
             }

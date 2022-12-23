@@ -12,6 +12,7 @@ struct Comment: Identifiable, Hashable {
 //    var postId: String
     var userId: String
     var postId: String
+    var nickName: String
     var content: String
     var createdAt: Double
     

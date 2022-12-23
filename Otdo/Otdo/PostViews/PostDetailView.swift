@@ -101,8 +101,14 @@ struct PostDetailView: View {
                 TextField("댓글을 입력하세요", text: $inputComment)
                     .textFieldStyle(.roundedBorder)
                 Button(action: {
+                    var userNickName: String = ""
+                    for user in userInfoStore.users {
+                        if user.id == userInfoStore.currentUser?.uid {
+                            userNickName = user.nickName
+                        }
+                     }
                     let createdAt = Date().timeIntervalSince1970
-                    let newComment: Comment = Comment(id: UUID().uuidString, userId: userInfoStore.currentUser?.uid ?? "", postId: post.id, content: inputComment, createdAt: createdAt)
+                    let newComment: Comment = Comment(id: UUID().uuidString, userId: userInfoStore.currentUser?.uid ?? "", postId: post.id, nickName: userNickName, content: inputComment, createdAt: createdAt)
                     commentStore.comments.append(newComment)
                     commentStore.addComment(post, newComment)
                     commentStore.fetchComments(post)
@@ -168,7 +174,7 @@ struct CommentView: View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
-                    Text(postStore.posts[index].nickName)
+                    Text(comment.nickName)
                         .fontWeight(.black)
                     Spacer()
                     if comment.userId == Auth.auth().currentUser?.uid {
