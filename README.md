@@ -6,49 +6,60 @@
 | <img width="200" src="https://user-images.githubusercontent.com/57763334/208874503-ea989f21-dd7d-4fa2-a5c1-5e1db4aad821.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208874479-a3ff8f25-a902-4902-a8b4-264edb68e1d7.png"> |
 |:-:|:-:|
 
-## Weather Tab
-| <img width="200" src="https://user-images.githubusercontent.com/57763334/208871300-d00ef4f9-5b7e-42c7-ada1-aacef0461eb0.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208871760-59db30d6-b35b-4be4-9ef9-14de60f64c8a.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208872000-f13d9ac4-e618-4492-a7e4-36cf1df7295d.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208876898-afeb43ec-74e9-4a4a-baca-fdd5b6192d5a.png"> |
-|:-:|:-:|:-:|:-:|
-
-
-## OOTD Tab
-| <img width="200" src="https://user-images.githubusercontent.com/57763334/208873541-0d2c17c5-9ea3-4ef1-a299-bb9e71096d3f.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208873687-19553f4b-45e1-445e-8223-5e93832c8f4c.png"> |
-|:-:|:-:|
-
-
-## My Page Tab
- <img width="200" src="https://user-images.githubusercontent.com/57763334/208874031-b65ebc72-e4ec-4e0c-b25f-82c636c791b8.png"> 
-
-### 설치 가이드
-GoogleService-Info.plist는 git에 올라가있어서 따로 추가 안하셔도 됩니다
-
-### 시나리오
-#### Login
 로그인 화면에서 회원가입화면으로 넘어간다
-- 이메일 로그인만 가능 
-- 구글 로그인 미구현 회원가입 화면에서 이메일과 비밀번호, 닉네임, 성별, 나이를 입력하고 회원가입을 진행한다 
+- 이메일 로그인 가능
+- 구글 로그인 가능 
+- 회원가입 화면에서 이메일과 비밀번호, 닉네임, 성별, 나이를 입력하고 회원가입을 진행한다 
 - 비밀번호는 6글자 이상 입력해야 계정 생성이 가능하다 이메일과 비밀번호를 입력하고 로그인한다 
 - 1회 로그인 후에는, 로그아웃하지 않으면 자동로그인 되어 있다 
 
-#### Weather
-지역별 현재 날씨를 보여준다 
-- 처음에는 서울을 기준으로 보여준다 
+## Weather Tab
+| <img width="200" src="https://user-images.githubusercontent.com/57763334/209303208-64fefe88-d9d0-4967-a23c-b7ed6aa2c6e5.gif">| <img width="200" src="https://user-images.githubusercontent.com/57763334/208871760-59db30d6-b35b-4be4-9ef9-14de60f64c8a.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208872000-f13d9ac4-e618-4492-a7e4-36cf1df7295d.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/208876898-afeb43ec-74e9-4a4a-baca-fdd5b6192d5a.png"> |
+|:-:|:-:|:-:|:-:|
+
+지역별 현재 날씨를 보여준다
+- 처음에는 서울을 기준으로 보여준다
 - 눌러서 지역 선택을 하면 변경된 지역의 현재 날씨를 보여준다 
 - 현재 날씨 위젯을 누르면 해당 지역 상세날씨/주간날씨를 보여준다 
 - 상세날씨에서는 시간대별 날씨와 오늘의 날씨에 대한 상세 정보를 보여준다. 
 - 주간날씨에서는 해당 주에 대한 최저/최고 기온을 보여준다. 
+- 지역별 현재 기온에 맞는 추천 OOTD를 보여준다
 
-#### OOTD
+
+## OOTD Tab
+<img width="200" src="https://user-images.githubusercontent.com/57763334/209302684-b295672a-316b-4107-be80-a0c9067de579.gif">
+
 어플 사용자들이 작성한 게시물들을 그리드 형식의 피드로 확인할 수 있다. 
 - 게시글에는 온도별 옷차림(OOTD)에 대한 사진과 글이 작성되어 있다. 
 - 각각의 그리드에서는 작성자의 프로필, 기온, OOTD사진, 글 내용, 좋아요 수, 댓글 수, 북마크 수를 확인할 수 있다. 최저 기온과 최고 기온을 직접 입력하여 해당 온도 범위에 해당하는 OOTD들만 피드로 확인할 수 있다. 
 - 피드를 밑으로 잡아당기면(? 온도 설정이 초기화 되고 최신순으로 전체 피드 업데이트가 가능하다 원하는 사용자를 검색해서 해당 사용자의 게시물들을 확인할 수 있다. 우측 상단의 글쓰기 버튼을 눌러서 게시물을 추가할 수 있다. 
-- 게시물을 추가하면 추가된 게시물을 포함해서 전체 피드를 최신순으로 업데이트하여 보여준다 
+- 게시물을 추가하면 추가된 게시물을 포함해서 전체 피드를 최신순으로 업데이트하여 보여준다
 
-#### MyPage
+
+피드의 게시물을 누르면 게시물 상세페이지로 이동하여 게시물을 확인할 수 있다.
+- 댓글 추가, 삭제가 가능하다.
+
+
+슬라이더로 온도 범위를 설정하여 게시물들을 정렬해서 피드로 확인할 수 있다.
+- 초기화를 누르면 다시 전체 피드를 최신순으로 업데이트하여 보여준다.
+
+
+사용자를 검색하여 원하는 사용자의 OOTD 게시물을 확인할 수 있다.
+
+
+## My Page Tab
+| <img width="200" src="https://user-images.githubusercontent.com/57763334/209303385-801fac3e-f72d-494e-a6c4-d36062b26297.png"> | <img width="200" src="https://user-images.githubusercontent.com/57763334/209303391-018be46c-25b7-44c1-9361-e282f92e78b3.png"> |
+|:-:|:-:|
+
 로그인 정보(닉네임, 이메일)을 확인할 수 있다 우측 상단에서 로그아웃이 가능하다 내가 쓴 게시물과 북마크 한 게시물을 확인할 수 있다(북마크 미구현) 
 - 내가 쓴 게시물을 누르면 게시물 확인할 수 있다 
 - 게시물 우측 상단 버튼을 통해서 글 수정/삭제가 가능하다
+
+
+---
+
+### 설치 가이드
+GoogleService-Info.plist는 git에 올라가있어서 따로 추가 안하셔도 됩니다
 
 ---
 
