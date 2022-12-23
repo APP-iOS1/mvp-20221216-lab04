@@ -28,9 +28,10 @@ class CommentStore: ObservableObject {
                         let id = document["id"] as? String ?? ""
                         let userId = document["userId"] as? String ?? ""
                         let postId = document["postId"] as? String ?? ""
+                        let nickName = document["nickName"] as? String ?? ""
                         let content = document["content"] as? String ?? ""
                         let createdAt = document["createdAt"] as? Double ?? 0.0
-                        let comment: Comment = Comment(id: id, userId: userId, postId: postId, content: content, createdAt: createdAt)
+                        let comment: Comment = Comment(id: id, userId: userId, postId: postId, nickName: nickName, content: content, createdAt: createdAt)
                         self.comments.append(comment)
                         
                     }
@@ -45,13 +46,13 @@ class CommentStore: ObservableObject {
                 "id": comment.id,
                 "postId": post.id,
                 "userId": Auth.auth().currentUser?.uid ?? "",
+                "nickName": comment.nickName,
                 "content": comment.content,
                 "createdAt": comment.createdAt,
             ])
     }
     
     func deleteComment (_ post: Post,_ comment: Comment) {
-        database.collection("Posts").document("\(post.id)").collection("Comments").document(comment.postId).delete()
-        comments.removeLast()
+        database.collection("Posts").document("\(post.id)").collection("Comments").document(comment.id).delete()
     }
 }
