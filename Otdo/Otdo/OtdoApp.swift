@@ -37,6 +37,8 @@ struct OtdoApp: App {
       NavigationView {
           if userInfoStore.currentUser == nil {
               ContentView().environmentObject(viewRouter).environmentObject(userInfoStore).environmentObject(postStore).environmentObject(commentStore)
+                  .environmentObject(slider)
+
           } else {
               MainView().environmentObject(viewRouter).environmentObject(userInfoStore).environmentObject(postStore).environmentObject(commentStore)
                   .environmentObject(slider)
