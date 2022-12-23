@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TemperatureSliderView: View {
     @EnvironmentObject var postStore: PostStore
-    @ObservedObject var slider = CustomSlider(start: -30, end: 50)
+    @EnvironmentObject var slider: CustomSlider
     
     @Binding var lowTemp: Double
     @Binding var highTemp: Double

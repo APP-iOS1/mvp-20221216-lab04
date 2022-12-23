@@ -10,6 +10,7 @@ import SwiftUI
 struct OOTDView: View {
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var userInfoStore: UserInfoStore
+    @EnvironmentObject var slider: CustomSlider
     
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 0, alignment: nil),
@@ -74,7 +75,7 @@ struct OOTDView: View {
             PostAddView(isShowingAdd: $isShowingAdd).environmentObject(postStore).environmentObject(userInfoStore)
         }
         .refreshable {
-            postStore.fetchPost()
+            postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
             for post in postStore.posts {
                 postStore.retrievePhotos(post)
             }

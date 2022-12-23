@@ -25,6 +25,7 @@ struct OtdoApp: App {
     @StateObject var userInfoStore = UserInfoStore()
     @StateObject var postStore = PostStore()
     @StateObject var commentStore = CommentStore()
+    @StateObject var slider = CustomSlider(start: -30, end: 50)
 
 
   // register app delegate for Firebase setup
@@ -38,6 +39,7 @@ struct OtdoApp: App {
               ContentView().environmentObject(viewRouter).environmentObject(userInfoStore).environmentObject(postStore).environmentObject(commentStore)
           } else {
               MainView().environmentObject(viewRouter).environmentObject(userInfoStore).environmentObject(postStore).environmentObject(commentStore)
+                  .environmentObject(slider)
           }
       }
     }
