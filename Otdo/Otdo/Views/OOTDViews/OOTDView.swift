@@ -71,7 +71,7 @@ struct OOTDView: View {
                                         OOTDPostView(post: post)
                                     }
                                     .foregroundColor(.black).environmentObject(postStore).environmentObject(userInfoStore)
-
+                                }
                             }
                         )
                     }
