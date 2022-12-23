@@ -13,6 +13,7 @@ struct OOTDView: View {
     
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 0, alignment: nil),
+        GridItem(.flexible(), spacing: 0, alignment: nil),
         GridItem(.flexible(), spacing: 0, alignment: nil)
     ]
     @State private var searchText: String = ""
@@ -41,7 +42,7 @@ struct OOTDView: View {
                     LazyVGrid(
                         columns: columns,
                         alignment: .center,
-                        spacing: 8,
+                        spacing: 5,
                         pinnedViews: [],
                         content:  {
                             ForEach(Array(postStore.posts.enumerated()), id: \.offset) { (index, post) in

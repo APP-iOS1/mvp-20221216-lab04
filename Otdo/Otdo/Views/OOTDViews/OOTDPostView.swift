@@ -19,53 +19,54 @@ struct OOTDPostView: View {
                     
                     Image(uiImage: postImage.image)
                         .resizable()
-                        .frame(width: 170, height: 250)
+                        .frame(width: 120, height: 120)
                         .aspectRatio(contentMode: .fill)
-                        .cornerRadius(15)
+                    
                 }
             }
             .overlay(
                 HStack{
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 18    ,height: 18)
-                    Text(post.nickName)
-                        .font(.system(size: 14))
                     Spacer()
                     Text("\(Int(post.temperature))℃")
+                        .font(.caption)
+                        .frame(width: 35, height: 23)
+                        .background(Color.white)
+                        .cornerRadius(7)
+                        .opacity(0.75)
                 }
                     .padding(10)
                     .frame(maxHeight: .infinity, alignment: .bottom)
             )
             
-            Text(post.content)
-                .frame(width: 160, height: 30)
-                .font(.system(size: 12))
-                .padding(.bottom, 3)
-            HStack{
-                HStack{
-                    Image(systemName: "heart")
-                    Text("123")
-                        .offset(x: -5)
-                }
-                HStack{
-                    Image(systemName: "message")
-                    Text("123")
-                        .offset(x: -5)
-                }
-                HStack{
-                    Image(systemName: "bookmark")
-                    Text("123")
-                        .offset(x: -5)
-                }
-            }
-            .font(.system(size: 12))
-            .padding(.bottom)
+            
+            //            Text(post.content)
+            //                .frame(width: 160, height: 30)
+            //                .font(.system(size: 12))
+            //                .padding(.bottom, 3)
+            //            HStack{
+            //                HStack{
+            //                    Image(systemName: "heart")
+            //                    Text("123")
+            //                        .offset(x: -5)
+            //                }
+            //                HStack{
+            //                    Image(systemName: "message")
+            //                    Text("123")
+            //                        .offset(x: -5)
+            //                }
+            //                HStack{
+            //                    Image(systemName: "bookmark")
+            //                    Text("123")
+            //                        .offset(x: -5)
+            //                }
+            //            }
+            //            .font(.system(size: 12))
+            //            .padding(.bottom)
         }
-//        .onAppear {
-//            postStore.fetchPost()
-//           
-//        }
+        //        .onAppear {
+        //            postStore.fetchPost()
+        //
+        //        }
     }
 }
 

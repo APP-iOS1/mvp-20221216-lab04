@@ -20,8 +20,9 @@ struct MyPageView: View {
     @State private var myPost: [Post] = []
     
     let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 0, alignment: nil),
-        GridItem(.flexible(), spacing: 0, alignment: nil)
+        GridItem(.flexible(), spacing: 5, alignment: nil),
+        GridItem(.flexible(), spacing: 5, alignment: nil),
+        GridItem(.flexible(), spacing: 5, alignment: nil)
     ]
     var body: some View {
         NavigationStack{
@@ -66,7 +67,7 @@ struct MyPageView: View {
                     LazyVGrid(
                         columns: columns,
                         alignment: .center,
-                        spacing: 8,
+                        spacing: 2,
                         pinnedViews: [],
                         content:  {
                             ForEach(Array(myPost.enumerated()), id: \.offset) { (index, post) in
@@ -112,8 +113,8 @@ enum PostSection: String, CaseIterable {
     case bookmarks = "북마크 한 게시물"
 }
 
-struct MyPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPageView()
-    }
-}
+//struct MyPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MyPageView()
+//    }
+//}
