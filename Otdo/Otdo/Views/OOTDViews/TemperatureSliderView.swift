@@ -9,7 +9,10 @@ import SwiftUI
 
 struct TemperatureSliderView: View {
     @EnvironmentObject var postStore: PostStore
-    @ObservedObject var slider = CustomSlider(start: -30, end: 50)
+    @EnvironmentObject var slider: CustomSlider
+    
+    @Binding var lowTemp: Double
+    @Binding var highTemp: Double
     
     var body: some View {
         VStack{
@@ -18,7 +21,7 @@ struct TemperatureSliderView: View {
                     .font(.title3)
                     .bold()
                 Spacer()
-                Text("\(Int(slider.lowHandle.currentValue))℃ ~ \(Int(slider.highHandle.currentValue))℃")
+                Text("\(Int(lowTemp))℃ ~ \(Int(highTemp))℃")
                     .fontWeight(.semibold)
                     .foregroundColor(Color.gray)
             }
@@ -38,16 +41,40 @@ struct TemperatureSliderView: View {
             }
             .offset(y: -5)
             .padding(.horizontal)
-            Button {
-                postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
-            } label: {
-                Text("설정")
-                    .foregroundColor(Color.white)
-                    .padding(10)
+            HStack{
+                Button {
+                    postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
+                } label: {
+                    Text("설정")
+                        .foregroundColor(Color.white)
+                        .padding(10)
+                }
+                .background(.black)
+                .cornerRadius(10)
+                .padding(.leading, 10)
+                Button {
+                    lowTemp = Double(-30)
+                    highTemp = Double(50)
+
+                    slider.highHandle = SliderHandle(sliderWidth: slider.width, sliderHeight: slider.lineWidth, sliderValueStart: slider.valueStart, sliderValueEnd: slider.valueEnd, startPercentage: SliderValue(wrappedValue: 1.0))
+                    slider.lowHandle = SliderHandle(sliderWidth: slider.width, sliderHeight: slider.lineWidth, sliderValueStart: slider.valueStart, sliderValueEnd: slider.valueEnd, startPercentage: SliderValue(wrappedValue: 0.0))
+                    postStore.fetchPostByTemperature(lowTemperature: slider.lowHandle.currentValue, highTemperature: slider.highHandle.currentValue)
+                    
+                } label: {
+                    Text("초기화")
+                        .foregroundColor(Color.white)
+                        .padding(10)
+                }
+                .background(.black)
+                .cornerRadius(10)
+                .padding(.leading, 10)
             }
-            .background(.black)
-            .cornerRadius(10)
-            .padding(.leading, 10)
+        }
+        .onChange(of: slider.lowHandle.currentValue) { newValue in
+            lowTemp = slider.lowHandle.currentValue
+        }
+        .onChange(of: slider.highHandle.currentValue) { newValue in
+            highTemp = slider.highHandle.currentValue
         }
     }
 }
