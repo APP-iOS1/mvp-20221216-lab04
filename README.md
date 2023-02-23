@@ -80,3 +80,12 @@
 |<img width="120" src="https://avatars.githubusercontent.com/u/114239407?v=4">|<img width="120" src="https://avatars.githubusercontent.com/u/57763334?v=4">|<img width="120" src="https://avatars.githubusercontent.com/u/104570633?v=4">|<img width="120" src="https://avatars.githubusercontent.com/u/98953443?v=4">|<img width="120" src="https://avatars.githubusercontent.com/u/107797217?v=4">|
 |:---:|:---:|:---:|:---:|:---:|
 |고범석<br>[@FrediOS-dev](https://github.com/FrediOS-dev)|김도희<br>[@ehvkddl](https://github.com/ehvkddl)|박성민<br>[@mrgroomy](https://github.com/mrgroomy)|봉혜미<br>[@hyemib](https://github.com/hyemib)|이민경<br>[@mxnkng](https://github.com/mxnkng)|
+
+---
+
+## 라이선스
+Firebase
+https://github.com/firebase/firebase-ios-sdk/blob/master/LICENSE
+
+GoogleSignIn-iOS
+https://github.com/google/GoogleSignIn-iOS/blob/main/LICENSE
